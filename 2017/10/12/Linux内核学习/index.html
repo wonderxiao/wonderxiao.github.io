@@ -8,17 +8,22 @@
   <link rel="dns-prefetch" href="http://wonderxiao.cn">
   <title>Linux内核学习 | 思想直播信号</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="电子科大小硕">
+  <meta name="description" content="本文主要目的是学习并归纳Linux操作系统中内核的几个基本重要知识 进程 一个进程在地址空间中执行一个单独的指令序列    地址空间是允许进程引用的内存空间的集合，操作系统允许具有多个执行流的进程，即在相同的地址空间可执行多个指令序列。进程能并发活动，竞争的系统资源主要是CPU区分程序和进程：  几个进程能并发执行同一个程序，同时，同一进程能顺序执行多个程序  现在的CPU处理器一般都是多核CPU">
+<meta name="keywords" content="Linux内核,进程,操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核学习">
 <meta property="og:url" content="http://wonderxiao.cn/2017/10/12/Linux内核学习/index.html">
 <meta property="og:site_name" content="思想直播信号">
-<meta property="og:description" content="电子科大小硕">
+<meta property="og:description" content="本文主要目的是学习并归纳Linux操作系统中内核的几个基本重要知识 进程 一个进程在地址空间中执行一个单独的指令序列    地址空间是允许进程引用的内存空间的集合，操作系统允许具有多个执行流的进程，即在相同的地址空间可执行多个指令序列。进程能并发活动，竞争的系统资源主要是CPU区分程序和进程：  几个进程能并发执行同一个程序，同时，同一进程能顺序执行多个程序  现在的CPU处理器一般都是多核CPU">
 <meta property="og:locale" content="942286384@qq.com">
-<meta property="og:updated_time" content="2017-10-12T01:08:24.735Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_%E9%93%BE%E6%8E%A5%E7%9A%84%E8%AE%BF%E9%97%AE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_VFS%E5%9C%A8%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_VFS%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E5%A4%84%E7%90%86.png">
+<meta property="og:updated_time" content="2017-10-13T17:06:45.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核学习">
-<meta name="twitter:description" content="电子科大小硕">
+<meta name="twitter:description" content="本文主要目的是学习并归纳Linux操作系统中内核的几个基本重要知识 进程 一个进程在地址空间中执行一个单独的指令序列    地址空间是允许进程引用的内存空间的集合，操作系统允许具有多个执行流的进程，即在相同的地址空间可执行多个指令序列。进程能并发活动，竞争的系统资源主要是CPU区分程序和进程：  几个进程能并发执行同一个程序，同时，同一进程能顺序执行多个程序  现在的CPU处理器一般都是多核CPU">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_%E9%93%BE%E6%8E%A5%E7%9A%84%E8%AE%BF%E9%97%AE.png">
   
     <link rel="alternative" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
   
@@ -180,7 +185,103 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>本文主要目的是学习并归纳Linux操作系统中内核的几个基本重要知识</p>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><ul>
+<li>一个进程在地址空间中执行一个单独的指令序列  </li>
+</ul>
+<p><strong>地址空间</strong>是允许进程引用的内存空间的集合，操作系统允许具有多个执行流的进程，即在相同的地址空间可执行多个指令序列。<br>进程能并发活动，竞争的系统资源主要是CPU<br>区分程序和进程：</p>
+<ul>
+<li>几个进程能并发执行同一个程序，同时，同一进程能顺序执行多个程序</li>
+</ul>
+<p>现在的CPU处理器一般都是多核CPU，可通过任务管理器查看。而在单处理器系统上，只有一个进程能占用CPU。因此，在某时刻，只能有一个执行流。<br>CPU有多少个，就有多少个进程可同时执行。选择哪个进程执行由操作系统的调度程序决定，进程分为抢占式进程和非抢占式进程。<br>对于<em>抢占式进程</em>，只有进程自愿放弃CPU，调度程序才会被调用；<br>对于<em>非抢占式进程</em>，如多用户系统中的进程调度，操作系统记录下每个进程占优的CPU时间，并周期性地激活调度程序。</p>
+<hr>
+<p>为了标识一个特定的文件，进程使用路径名，路径名由斜杠及一列指向文件的目录名交替组成。若路径名第一个字符是斜杠那么该路径就为绝对路径，因为其起点是根目录。若第一项是目录名或文件名，那么路径就是相对路径，因为其起点是进程的当前目录。</p>
+<hr>
+<h2 id="Linux文件与目录"><a href="#Linux文件与目录" class="headerlink" title="Linux文件与目录"></a>Linux文件与目录</h2><p>操作系统为了解决信息能独立于进程之外被长期存储，而引入了文件。</p>
+<ul>
+<li>文件作为进程创建信息的逻辑单元，可被多个进程并发使用<br>在Unix系统中，操作系统为磁盘上的文本与图像、鼠标与键盘等输入设备及网络交互等I/O操作设计了一组通用的API，使他们被处理时均可统一使用字节流。</li>
+<li>Lniux系统中除进程外的一切都是文件，为了便于文件管理而引入目录，这使Linux文件系统形成了一个层级结构的目录树。</li>
+</ul>
+<p><strong>Linux系统顶层目录结构</strong><br> /              根目录<br>├── bin     存放用户二进制文件<br>├── boot    存放内核引导配置文件<br>├── dev     存放设备文件<br>├── etc     存放系统配置文件<br>├── home    用户主目录<br>├── lib     动态共享库<br>├── lost+found     文件系统恢复时的恢复文件<br>├── media   可卸载存储介质挂载点<br>├── mnt     文件系统临时挂载点<br>├── opt     附加的应用程序包<br>├── proc    系统内存的映射目录，提供内核与进程信息<br>├── root    root 用户主目录<br>├── sbin    存放系统二进制文件<br>├── srv     存放服务相关数据<br>├── sys     sys 虚拟文件系统挂载点<br>├── tmp     存放临时文件<br>├── usr     存放用户应用程序<br>└── var     存放邮件、系统日志等变化文件</p>
+<ul>
+<li>Linux系统并不区分文件和目录，目录是记录其他文件名的文件</li>
+<li>Linux将设备当做文件处理</li>
+</ul>
+<p><strong>打开并读取设备文件</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> fd; </div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ie</span>;</span> </div><div class="line">fd = open(<span class="string">"/dev/input/event3"</span>, O_RDONLY); </div><div class="line">read(fd, &amp;ie, <span class="keyword">sizeof</span>(struct input_event)); </div><div class="line"><span class="built_in">printf</span>(<span class="string">"type = %d  code = %d  value = %d\n"</span>, </div><div class="line">		 ie.type, ie.code, ie.value); </div><div class="line">close(fd);</div></pre></td></tr></table></figure></p>
+<p>其展示了如何打开设备文件event3并读取文件内容，文件event3表示一直输入设备，其可能是鼠标或键盘，通过查看 /proc/bus/input/devices 可知 event3 对应设备的类型。设备文件 /dev/input/event3 使用 read() 以字符流的方式被读取。结构体 input_event 被定义在内核头文件 linux/input.h 中。</p>
+<ul>
+<li>文件都有文件名和数据，在Linux上被分成两部分：用户数据与元数据</li>
+<li>用户数据：文件数据块（data block)，数据块是记录文件内容的地方</li>
+<li>元数据：文件的附加属性，即文件大小、创建时间及所有者等信息。</li>
+</ul>
+<p>在Linux中，元数据中的inode号为索引节点号，是文件的唯一标识。而文件名是为了方便人们记忆和使用，系统或程序是通过inode号来寻找正确的文件数据块。</p>
+<ul>
+<li>查看inode号使用stat或ls -i命令</li>
+</ul>
+<h2 id="硬链接-amp-软链接"><a href="#硬链接-amp-软链接" class="headerlink" title="硬链接&amp;软链接"></a>硬链接&amp;软链接</h2><p>链接不仅解决了Linux系统文件的共享使用，而且带来了隐藏文件路径、增加权限安全及节省存储等好处。</p>
+<ul>
+<li><p>硬链接：一个inode号对应多个文件名<br>文件A是文件B的硬链接，则A的目录项中的索引inode节点号与B的目录项中的inode节点相同，即同一个inode节点对应不同的文件名，两个文件名指向同一文件，A和B对于文件系统来说是完全等同的。</p>
+</li>
+<li><p>特点</p>
+<blockquote>
+<p>文件有相同的 inode 及 data block<br>只能对已存在的文件进行创建<br>不能交叉文件系统进行硬链接的创建<br>不能对目录进行创建，只可对文件创建<br>删除一个硬链接文件并不影响其他有相同 inode 号的文件</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ touch <span class="built_in">test</span></div><div class="line">$ <span class="built_in">echo</span> <span class="string">"This is a test."</span> &gt; <span class="built_in">test</span></div><div class="line">$ cat <span class="built_in">test</span> </div><div class="line">This is a <span class="built_in">test</span>.</div><div class="line">$ ln <span class="built_in">test</span> filetxt</div><div class="line">$ ls -li</div><div class="line">total 8</div><div class="line">809185 -rw-rw-r-- 2 wonderxiao wonderxiao 16 10月 13 20:42 filetxt</div><div class="line">809185 -rw-rw-r-- 2 wonderxiao wonderxiao 16 10月 13 20:42 <span class="built_in">test</span></div></pre></td></tr></table></figure>
+<p>其中，809185是文件的inode值，你可简单将文件看作C语言的指针，它指向物理硬盘的一个区块。事实上，文件系统会维护一个引用计数，只要有文件指向这个区块，它就不会从硬盘上消失。</p>
+<p>inode 是随着文件的存在而存在，因此只有当文件存在时才可创建硬链接，即当 inode 存在且链接计数器不为 0 时。</p>
+<p>若修改刚才创建的filetxt文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> <span class="string">"New one"</span> &gt;&gt; filetxt                  </div><div class="line">$ cat <span class="built_in">test</span> </div><div class="line">This is a <span class="built_in">test</span>.</div><div class="line">New one</div></pre></td></tr></table></figure>
+<h3 id="可看到，这两个就如同一个文件一样，inode值一样，都指向同一个区块。"><a href="#可看到，这两个就如同一个文件一样，inode值一样，都指向同一个区块。" class="headerlink" title="可看到，这两个就如同一个文件一样，inode值一样，都指向同一个区块。"></a><em>可看到，这两个就如同一个文件一样，inode值一样，都指向同一个区块。</em></h3><h2 id="软链接——符号链接"><a href="#软链接——符号链接" class="headerlink" title="软链接——符号链接"></a>软链接——符号链接</h2><p>文件用户数据块中存放的内容是另一文件的路径名的指向，则该文件就是软连接。软链接就是一个普通文件，只是数据块内容有点特殊。软链接有着自己的 inode 号以及用户数据块,因此软链接的创建与使用没有类似硬链接的诸多限制。</p>
+<ul>
+<li>特点<blockquote>
+<p>软链接有自己的文件属性及权限等<br>可对不存在的文件或目录创建软链接<br>软链接可交叉文件系统<br>软链接可对文件或目录创建<br>创建软链接时，链接计数 i_nlink 不会增加<br>删除软链接并不影响被指向的文件，但若被指向的原文件被删除，则相关软连接被称为死链接</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="链接的访问"><a href="#链接的访问" class="headerlink" title="链接的访问"></a>链接的访问</h2><p><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_%E9%93%BE%E6%8E%A5%E7%9A%84%E8%AE%BF%E9%97%AE.png" alt="链接的访问"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ ln -s filetxt softtxt</div><div class="line">$ ls -li</div><div class="line">total 8</div><div class="line">809185 -rw-rw-r-- 2 wonderxiao wonderxiao 24 10月 13 21:11 filetxt</div><div class="line">809068 lrwxrwxrwx 1 wonderxiao wonderxiao  7 10月 13 21:14 softtxt -&gt; filetxt</div><div class="line">809185 -rw-rw-r-- 2 wonderxiao wonderxiao 24 10月 13 21:11 <span class="built_in">test</span></div></pre></td></tr></table></figure></p>
+<p>这个软链接的inode值不一样了，且文件属性为1，说明刚才创建的软链接文件根本不是同一类型。</p>
+<p>若删除filetxt文件，然后输出软硬链接文件内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ rm filetxt</div><div class="line">$ cat <span class="built_in">test</span></div><div class="line">This is a <span class="built_in">test</span>.</div><div class="line">New one</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cat softtxt</div><div class="line">cat: softtxt: No such file or directory</div></pre></td></tr></table></figure>
+<p>之前硬链接没有任何影响，这是由于其inode所指向的区块有一个硬链接在指向它，所以此区块仍然有效，可继续访问。而软链接的inode所指向的内容实际上保存的是一个绝对路径，当用户访问这个文件时，即访问的是这个文件路径所在的文件。此时，这个文件已被删除，所以找不到它。</p>
+<ul>
+<li>软链接：保存其代表的绝对路径，是另外一个文件，在硬盘上有独立的块，访问时会替换自身路径。</li>
+<li>硬链接：代表的是文件的副本<h2 id="Linux-VFS"><a href="#Linux-VFS" class="headerlink" title="Linux VFS"></a>Linux VFS</h2>Linux有极其丰富的文件系统，可分为：</li>
+<li>网络文件系统，如nfs、cifs等</li>
+<li>磁盘文件系统，如ext4、ext3等</li>
+<li>特殊文件系统，如proc、sysfs、ramfs、tmpfs等</li>
+</ul>
+<p>这些文件系统系统在Linux下共存的基础是Linux VFS(Virtual File System)，VFS作为一个通用的文件系统，抽象定义了文件系统的四个基本概念：</p>
+<ul>
+<li>文件</li>
+<li>目录项</li>
+<li>索引节点</li>
+<li>挂载点</li>
+</ul>
+<p>其在内核中，为用户空间层的文件系统提供了相关接口，即VFS实现了open()、read()等系统调用的函数，这就真正实现：在Linux系统中，除进程外一切都是文件。</p>
+<h2 id="VFS在系统中架构"><a href="#VFS在系统中架构" class="headerlink" title="VFS在系统中架构"></a>VFS在系统中架构</h2><p><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_VFS%E5%9C%A8%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png" alt="VFS在系统架构"></p>
+<p>VFS存在四个基本对象：</p>
+<ul>
+<li>超级块对象(superblock object)<br>一个已安装的文件系统</li>
+<li>索引节点对象(inode object)<br>一个文件</li>
+<li>目录项对象(dentry object)<br>一个目录项，如设备文件event3在路径/dev/input/event3中，存在四个目录项对象：/、dev/、input/及event3。</li>
+<li>文件对象(file object)<br>代表进程打开的文件</li>
+</ul>
+<p>这四个对象与进程及磁盘文件间的关系如下图：<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-13_VFS%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E5%A4%84%E7%90%86.png" alt="对象与进程及磁盘文件间的关系"></p>
+<p>其中，d_inode为硬链接，是文件路径的快速解析。同时，Linux VFS设计了目录项缓存dcache。</p>
+<p>在Linux中，索引节点结构存在于系统内存及磁盘中，其可分为VFS inode与实际文件系统的inode。VFS inode是作为实际文件系统中inode的抽象。</p>
+<h2 id="VFS中inode与inode-operations结构体"><a href="#VFS中inode与inode-operations结构体" class="headerlink" title="VFS中inode与inode_operations结构体"></a>VFS中inode与inode_operations结构体</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">inode</span> &#123;</span> </div><div class="line">    ... </div><div class="line">    <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">inode_operations</span>   *<span class="title">i_op</span>;</span> <span class="comment">// 索引节点操作</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span>           i_ino;      <span class="comment">// 索引节点号</span></div><div class="line">    <span class="keyword">atomic_t</span>                i_count;    <span class="comment">// 引用计数器</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span>            i_nlink;    <span class="comment">// 硬链接数目</span></div><div class="line">    ... </div><div class="line"> &#125; </div><div class="line"></div><div class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">inode_operations</span> &#123;</span> </div><div class="line">    ... </div><div class="line">    <span class="keyword">int</span> (*create) (struct inode *,struct dentry *,<span class="keyword">int</span>, struct nameidata *); </div><div class="line">    <span class="keyword">int</span> (*link) (struct dentry *,struct inode *,struct dentry *); </div><div class="line">    <span class="keyword">int</span> (*unlink) (struct inode *,struct dentry *); </div><div class="line">    <span class="keyword">int</span> (*symlink) (struct inode *,struct dentry *,<span class="keyword">const</span> <span class="keyword">char</span> *); </div><div class="line">    <span class="keyword">int</span> (*mkdir) (struct inode *,struct dentry *,<span class="keyword">int</span>); </div><div class="line">    <span class="keyword">int</span> (*rmdir) (struct inode *,struct dentry *); </div><div class="line">    ... </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>每个文件存在两个计数器：</p>
+<ul>
+<li>i_count:引用计数,用于跟踪文件被访问的数量,或者说 i_count 跟踪文件在内存中的情况</li>
+<li>i_nlink:硬链接计数,使用 ls -l 等命令查看到的文件硬链接数,即是磁盘计数器。当文件被删除时，则 i_nlink 先被设置成 0。</li>
+</ul>
+<p>文件的这两个计数器使得 Linux 系统升级或程序更新变的容易。系统或程序可在不关闭的情况下（即文件 i_count 不为 0），将新文件以同样的文件名进行替换，新文件有自己的 inode 及 data block，旧文件会在相关进程关闭后被完整的删除。</p>
+<h2 id="文件系统-ext4-中的-inode"><a href="#文件系统-ext4-中的-inode" class="headerlink" title="文件系统 ext4 中的 inode"></a>文件系统 ext4 中的 inode</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ext4_inode</span> &#123;</span> </div><div class="line">    ... </div><div class="line">    __le32  i_atime;        <span class="comment">// 文件内容最后一次访问时间</span></div><div class="line">    __le32  i_ctime;        <span class="comment">// inode 修改时间</span></div><div class="line">    __le32  i_mtime;        <span class="comment">// 文件内容最后一次修改时间</span></div><div class="line">    __le16  i_links_count;  <span class="comment">// 硬链接计数</span></div><div class="line">    __le32  i_blocks_lo;    <span class="comment">// Block 计数</span></div><div class="line">    __le32  i_block[EXT4_N_BLOCKS];  <span class="comment">// 指向具体的 block </span></div><div class="line">    ... </div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+<p>其中三个时间的定义可对应与命令 stat 中查看到三个时间。i_links_count 不仅用于文件的硬链接计数，也用于目录的子目录数跟踪（目录并不显示硬链接数，命令 ls -ld 查看到的是子目录数）。由于文件系统 ext3 对 i_links_count 有限制，其最大数为：32000（该限制在 ext4 中被取消）。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文描述了 Linux 系统中文件与目录被引入的原因及 Linux 处理文件的方式，然后我们通过区分硬链接与软链接的不同，了解 Linux 中的索引节点的相关知识，并以此引出了 inode 的结构体。索引节点结构体存在在于 Linux VFS 以及实际文件系统中，VFS 作为通用文件模型是 Linux 中“一切皆是文件”实现的基础。文章并未深入 Linux VFS，也没涉及实际文件系统的实现，文章只是从 inode 了解 Linux 的文件系统的相关内容。</p>
+
       
 
       
@@ -188,6 +289,25 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux内核</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">进程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -399,6 +519,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
             
             <div class="clearfix"></div>
