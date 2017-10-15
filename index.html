@@ -225,18 +225,18 @@ var _hmt = _hmt || [];
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>在电脑上某处新建hexo的文件夹，此文件夹为你存放，如F:\workBlog\hexo，然后使用hexo命令进行初始化。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /f/workBlog/hexo/</div><div class="line">$ hexo init</div></pre></td></tr></table></figure></p>
 <p>这样，hexo会自动下载hexo所需文件，如node_modules等。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean <span class="comment">#清除之前产生的内容，如hexo g产生的</span></div><div class="line">$ hexo generate <span class="comment">#生成</span></div><div class="line">$ hexo server <span class="comment">#启动服务</span></div></pre></td></tr></table></figure></p>
 <p>hexo server是开启本地预览服务，打开浏览器访问<a href="http://localhost:4000，即可看到加载的hexo博客" target="_blank" rel="external">http://localhost:4000，即可看到加载的hexo博客</a></p>
-<h2 id="此阶段遇到的问题"><a href="#此阶段遇到的问题" class="headerlink" title="此阶段遇到的问题"></a>此阶段遇到的问题</h2><p>本地浏览器加载时出现一直转圈，不能访问<br>此处一般为端口占用，解决方法：  </p>
+<h2 id="此阶段遇到的问题"><a href="#此阶段遇到的问题" class="headerlink" title="此阶段遇到的问题"></a>此阶段遇到的问题</h2><p>本地浏览器加载时出现一直转圈，不能访问<br>此处一般为端口占用，解决方法: </p>
 <ul>
 <li>查看电脑中占用端口4000的进程，关闭即可  </li>
 <li>打开hexo文件夹下_config.yml,将配置中端口port改成未占用的端口即可 </li>
 </ul>
 <hr>
-<h2 id="上传到github"><a href="#上传到github" class="headerlink" title="上传到github"></a>上传到github</h2><p>若一切配置到之后，使用hexo deploy发布即可。<br>但需满足：  </p>
+<h2 id="上传到github"><a href="#上传到github" class="headerlink" title="上传到github"></a>上传到github</h2><p>若一切配置到之后，使用hexo deploy发布即可。<br>但需满足:</p>
 <ul>
 <li>ssh key配置正确</li>
 <li>配置hexo目录下_config.yml文件    </li>
 </ul>
-<p>在_config.yml最后面添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:xxx/xxx.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
+<p>在_config.yml最后面添加:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:xxx/xxx.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
 <p>在此之后，一般出现：</p>
 <blockquote>
 <p>Deployer not found: github 或者 Deployer not found: git  </p>
