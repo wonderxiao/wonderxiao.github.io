@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-12_%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-12_%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-12_%E6%95%88%E6%9E%9C%E5%9B%BE.png">
-<meta property="og:updated_time" content="2017-10-13T17:08:00.870Z">
+<meta property="og:updated_time" content="2017-10-15T13:12:37.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub上搭建博客&amp;增加相册功能">
 <meta name="twitter:description" content="目标 在github上成功搭建Hexo博客 实现在博客上浏览图片，添加图片功能  最终效果:https://wonderxiao.github.io/ 说明 使用主题：hexo-theme-yilia来搭建Hexo博客 使用lawlite来增加相册功能，其中必须的样式文件点击必需文件在photos中包含四个文件 index.ejs ins.css ins.js lazyload.min.js  搭">
@@ -201,7 +201,7 @@ var _hmt = _hmt || [];
 <h1 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h1><ul>
 <li>申请github账号</li>
 <li>windows系统下使用腾讯管家安装git</li>
-<li>安装<a href="https://nodejs.org/dist/v8.6.0/node-v8.6.0-win-x64.zip" target="_blank" rel="external">nodejs</a></li>
+<li>安装<a href="https://npm.taobao.org/mirrors/node/v8.6.0/node-v8.6.0-x64.msi" target="_blank" rel="external">nodejs</a></li>
 </ul>
 <h2 id="验证软件安装成功"><a href="#验证软件安装成功" class="headerlink" title="验证软件安装成功"></a>验证软件安装成功</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git --version <span class="comment">#git@2.13.0</span></div><div class="line">$ node -v       <span class="comment">#node@8.6.0</span></div><div class="line">$ npm -v        <span class="comment">#npm@5.3.0</span></div></pre></td></tr></table></figure>
 <h2 id="git与github互联实现远程控制"><a href="#git与github互联实现远程控制" class="headerlink" title="git与github互联实现远程控制"></a>git与github互联实现远程控制</h2><ul>
@@ -216,20 +216,18 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"邮件地址"</span></div></pre></td></tr></table></figure>
 <p>一直回车，若需yes请输入，这是给权限，最终会生成文件在用户目录下，找到.ssh/id_rsa.pub文件，复制文件里的内容。  </p>
 <ul>
-<li>打开setting，建立本地系统的git bash与github连接权限，具体设置如下图所示：  </li>
+<li>打开setting，建立本地系统的git bash与github连接权限，具体设置如下图所示：<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-12_%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5.png" alt="创建连接 "></li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-12_%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5.png" alt="创建连接 "></p>
-<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>若如果提示Are you sure you want to continue connecting (yes/no)?，输入yes，然后会看到：  </p>
+<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh git@github.com</div></pre></td></tr></table></figure>
+<p>若如果提示Are you sure you want to continue connecting (yes/no)?，输入yes，然后会看到：  </p>
 <blockquote>
 <p>Hi xxx! You’ve successfully authenticated, but GitHub does not provide shell access.  </p>
 </blockquote>
 <h2 id="使用Hexo博客"><a href="#使用Hexo博客" class="headerlink" title="使用Hexo博客"></a>使用Hexo博客</h2><p>Hexo是一个简单、快速、强大的基于 Github Pages 的博客发布工具，支持Markdown格式，有众多优秀插件和主题。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>github page存放的都是静态文件，博客不仅存放文章内容，还存放文章列表、分类、标签、分类等动态文件。若每次写文章都去更新博文目录及其相关链接，那会很复杂。故每次写完博客，通过使用hexo来批量处理相关页面的生成，将有改动的内容更新到github上。 </p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo</div></pre></td></tr></table></figure>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>在电脑上某处新建hexo的文件夹，此文件夹为你存放，如F:\workBlog\hexo，然后使用hexo命令进行初始化。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /f/workBlog/hexo/</div><div class="line">$ hexo init</div></pre></td></tr></table></figure>
-<p>这样，hexo会自动下载hexo所需文件，如node_modules等。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean <span class="comment">#清除之前产生的内容，如hexo g产生的</span></div><div class="line">$ hexo generate <span class="comment">#生成</span></div><div class="line">$ hexo server <span class="comment">#启动服务</span></div></pre></td></tr></table></figure>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>在电脑上某处新建hexo的文件夹，此文件夹为你存放，如F:\workBlog\hexo，然后使用hexo命令进行初始化。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /f/workBlog/hexo/</div><div class="line">$ hexo init</div></pre></td></tr></table></figure></p>
+<p>这样，hexo会自动下载hexo所需文件，如node_modules等。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean <span class="comment">#清除之前产生的内容，如hexo g产生的</span></div><div class="line">$ hexo generate <span class="comment">#生成</span></div><div class="line">$ hexo server <span class="comment">#启动服务</span></div></pre></td></tr></table></figure></p>
 <p>hexo server是开启本地预览服务，打开浏览器访问<a href="http://localhost:4000，即可看到加载的hexo博客" target="_blank" rel="external">http://localhost:4000，即可看到加载的hexo博客</a></p>
 <h2 id="此阶段遇到的问题"><a href="#此阶段遇到的问题" class="headerlink" title="此阶段遇到的问题"></a>此阶段遇到的问题</h2><p>本地浏览器加载时出现一直转圈，不能访问<br>此处一般为端口占用，解决方法：  </p>
 <ul>
@@ -242,35 +240,28 @@ var _hmt = _hmt || [];
 <li>ssh key配置正确</li>
 <li>配置hexo目录下_config.yml文件    </li>
 </ul>
-<p>在_config.yml最后面添加：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:xxx/xxx.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<p>在_config.yml最后面添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:xxx/xxx.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
 <p>在此之后，一般出现：</p>
 <blockquote>
 <p>Deployer not found: github 或者 Deployer not found: git  </p>
 </blockquote>
-<p>这是需要安装插件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<p>这是需要安装插件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
 <p>之后，进行发布博客后，点击所有文章会出现模块缺失<br>解决方法：  </p>
 <ul>
 <li>node版本升级</li>
 <li>npm i hexo-generator-json-content –save</li>
-<li>在hexo文件下的_config.yml下添加：  </li>
+<li>在hexo文件下的_config.yml下添加：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">jsonContent:</div><div class="line">  meta: <span class="literal">false</span></div><div class="line">  pages: <span class="literal">false</span></div><div class="line">  posts:</div><div class="line">    title: <span class="literal">true</span></div><div class="line">    date: <span class="literal">true</span></div><div class="line">    path: <span class="literal">true</span></div><div class="line">    text: <span class="literal">false</span></div><div class="line">    raw: <span class="literal">false</span></div><div class="line">    content: <span class="literal">false</span></div><div class="line">    slug: <span class="literal">false</span></div><div class="line">    updated: <span class="literal">false</span></div><div class="line">    comments: <span class="literal">false</span></div><div class="line">    link: <span class="literal">false</span></div><div class="line">    permalink: <span class="literal">false</span></div><div class="line">    excerpt: <span class="literal">false</span></div><div class="line">    categories: <span class="literal">false</span></div><div class="line">    tags: <span class="literal">true</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">jsonContent:</div><div class="line">  meta: <span class="literal">false</span></div><div class="line">  pages: <span class="literal">false</span></div><div class="line">  posts:</div><div class="line">    title: <span class="literal">true</span></div><div class="line">    date: <span class="literal">true</span></div><div class="line">    path: <span class="literal">true</span></div><div class="line">    text: <span class="literal">false</span></div><div class="line">    raw: <span class="literal">false</span></div><div class="line">    content: <span class="literal">false</span></div><div class="line">    slug: <span class="literal">false</span></div><div class="line">    updated: <span class="literal">false</span></div><div class="line">    comments: <span class="literal">false</span></div><div class="line">    link: <span class="literal">false</span></div><div class="line">    permalink: <span class="literal">false</span></div><div class="line">    excerpt: <span class="literal">false</span></div><div class="line">    categories: <span class="literal">false</span></div><div class="line">    tags: <span class="literal">true</span></div></pre></td></tr></table></figure>
 <h2 id="常用hexo命令"><a href="#常用hexo命令" class="headerlink" title="常用hexo命令"></a>常用hexo命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo new <span class="string">"postName"</span> <span class="comment">#新建文章</span></div><div class="line">hexo new page <span class="string">"pageName"</span> <span class="comment">#新建页面</span></div><div class="line">hexo generate <span class="comment">#生成静态页面至public目录</span></div><div class="line">hexo server <span class="comment">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span></div><div class="line">hexo deploy <span class="comment">#部署到GitHub</span></div><div class="line">hexo <span class="built_in">help</span>  <span class="comment"># 查看帮助</span></div><div class="line">hexo version  <span class="comment">#查看Hexo的版本</span></div></pre></td></tr></table></figure>
-<p>缩写：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo n == hexo new</div><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure>
+<p>缩写：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo n == hexo new</div><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure></p>
 <h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">'my-first-blog'</span></div></pre></td></tr></table></figure>
 <p>这时我们新建了my-first-blog.md文件，一般完整格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">title: postName <span class="comment">#文章页面上的显示名称，一般是中文  </span></div><div class="line">date: 2013-12-02 15:30:16 <span class="comment">#文章生成时间，一般不改，当然也可以任意修改  </span></div><div class="line">categories: 默认分类 <span class="comment">#分类  </span></div><div class="line">tags: [tag1,tag2,tag3] <span class="comment">#文章标签，可空，多标签请用格式，注意:后面有个空格  </span></div><div class="line">description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</div><div class="line">---</div><div class="line">以下是正文</div></pre></td></tr></table></figure></p>
 <h2 id="添加相册"><a href="#添加相册" class="headerlink" title="添加相册"></a>添加相册</h2><ul>
 <li>github<br>建立一个用于存储相册的版本库，这里建立BlogPicture</li>
-</ul>
-<ul>
 <li>和hexo同目录下，将github下新建的BlogPicture克隆到本地文件夹下</li>
-<li><p>在BlogPicture下新建photos，将样式文件放在photos文件夹下，样式文件放在github上： <a href="https://github.com/wonderxiao/BlogPicture/tree/master/four" target="_blank" rel="external">https://github.com/wonderxiao/BlogPicture/tree/master/four</a><br>修改ins.js文件，主要是更改render函数</p>
-</li>
-<li><p>其中url对应你放在github上图片的地址，主要是更改src和minSrc</p>
-</li>
+<li>在BlogPicture下新建photos，将样式文件放在photos文件夹下，样式文件放在github上： <a href="https://github.com/wonderxiao/BlogPicture/tree/master/four" target="_blank" rel="external">https://github.com/wonderxiao/BlogPicture/tree/master/four</a><br>修改ins.js文件，主要是更改render函数</li>
+<li>其中url对应你放在github上图片的地址，主要是更改src和minSrc</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> render = <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">     	  <span class="keyword">var</span> ulTmpl = <span class="string">""</span>;</div><div class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>, len2 = res.list.length; j &lt; len2; j++) &#123;</div><div class="line">          <span class="keyword">var</span> data = res.list[j].arr;</div><div class="line">          <span class="keyword">var</span> liTmpl = <span class="string">""</span>;</div><div class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = data.link.length; i &lt; len; i++) &#123;</div><div class="line">            <span class="keyword">var</span> minSrc = <span class="string">'https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/min_photos/'</span> + data.link[i];</div><div class="line">  </div><div class="line">          <span class="keyword">var</span> src = <span class="string">'https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/'</span> + data.link[i];</div><div class="line">          </div><div class="line">          <span class="keyword">var</span> type = data.type[i];</div><div class="line">          <span class="keyword">var</span> target = src + (type === <span class="string">'video'</span> ? <span class="string">'.mp4'</span> : <span class="string">'.jpg'</span>);</div><div class="line">          src += <span class="string">''</span>;</div><div class="line"></div><div class="line">          liTmpl += <span class="string">'&lt;figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject"&gt;\</span></div><div class="line"><span class="string">                &lt;a href="'</span> + src + <span class="string">'" itemprop="contentUrl" data-size="1080x1080" data-type="'</span> + type + <span class="string">'" data-target="'</span> + src + <span class="string">'"&gt;\</span></div><div class="line"><span class="string">                  &lt;img class="reward-img" data-type="'</span> + type + <span class="string">'" data-src="'</span> + minSrc + <span class="string">'" src="/assets/img/empty.png" itemprop="thumbnail" onload="lzld(this)"&gt;\</span></div><div class="line"><span class="string">                &lt;/a&gt;\</span></div><div class="line"><span class="string">                &lt;figcaption style="display:none" itemprop="caption description"&gt;'</span> + data.text[i] + <span class="string">'&lt;/figcaption&gt;\</span></div><div class="line"><span class="string">            &lt;/figure&gt;'</span>;</div><div class="line">        &#125;</div><div class="line">        ulTmpl = ulTmpl + <span class="string">'&lt;section class="archives album"&gt;&lt;h1 class="year"&gt;'</span> + data.year + <span class="string">'年&lt;em&gt;'</span> + data.month + <span class="string">'月&lt;/em&gt;&lt;/h1&gt;\</span></div><div class="line"><span class="string">        &lt;ul class="img-box-ul"&gt;'</span> + liTmpl + <span class="string">'&lt;/ul&gt;\</span></div><div class="line"><span class="string">        &lt;/section&gt;'</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">'.instagram'</span>).innerHTML = <span class="string">'&lt;div class="photos" itemscope="" itemtype="http://schema.org/ImageGallery"&gt;'</span> + ulTmpl + <span class="string">'&lt;/div&gt;'</span>;</div><div class="line">        createVideoIncon();</div><div class="line">        _view2.default.init();</div><div class="line">        &#125;;</div></pre></td></tr></table></figure>
 <ul>
@@ -408,6 +399,28 @@ var _hmt = _hmt || [];
   
 
   
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="%=livere%">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+    </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+   
 
   
 
