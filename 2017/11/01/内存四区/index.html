@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wonderxiao.github.io">
-  <title>Archives | 思想直播信号</title>
+  <title>内存四区 | 思想直播信号</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="电子科大小硕">
-<meta property="og:type" content="website">
-<meta property="og:title" content="思想直播信号">
-<meta property="og:url" content="https://wonderxiao.github.io/archives/index.html">
+  <meta name="description" content="定义内存四区包含静态区、代码区、堆区、栈区  静态区  全局变量和静态变量存储在静态区  堆区  malloc的变量放在堆区，堆区一般由程序员分配释放。若程序员不释放，程序结束时可由操作系统回收。其分配方式类似于链表，在内存中的分布不是连续的，它们是不同区域的内存块通过指针链接起来的。一旦某一节点从链中断开，我们就要人为的将断开的节点从内存中释放。  堆的增长方式由低地址向高地址 栈区    局部">
+<meta name="keywords" content="内存分配,程序编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存四区">
+<meta property="og:url" content="https://wonderxiao.github.io/2017/11/01/内存四区/index.html">
 <meta property="og:site_name" content="思想直播信号">
-<meta property="og:description" content="电子科大小硕">
+<meta property="og:description" content="定义内存四区包含静态区、代码区、堆区、栈区  静态区  全局变量和静态变量存储在静态区  堆区  malloc的变量放在堆区，堆区一般由程序员分配释放。若程序员不释放，程序结束时可由操作系统回收。其分配方式类似于链表，在内存中的分布不是连续的，它们是不同区域的内存块通过指针链接起来的。一旦某一节点从链中断开，我们就要人为的将断开的节点从内存中释放。  堆的增长方式由低地址向高地址 栈区    局部">
 <meta property="og:locale" content="942286384@qq.com">
+<meta property="og:updated_time" content="2017-11-01T14:21:14.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="思想直播信号">
-<meta name="twitter:description" content="电子科大小硕">
+<meta name="twitter:title" content="内存四区">
+<meta name="twitter:description" content="定义内存四区包含静态区、代码区、堆区、栈区  静态区  全局变量和静态变量存储在静态区  堆区  malloc的变量放在堆区，堆区一般由程序员分配释放。若程序员不释放，程序结束时可由操作系统回收。其分配方式类似于链表，在内存中的分布不是连续的，它们是不同区域的内存块通过指针链接起来的。一旦某一节点从链中断开，我们就要人为的将断开的节点从内存中释放。  堆的增长方式由低地址向高地址 栈区    局部">
   
     <link rel="alternative" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
   
@@ -159,36 +161,95 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-内存四区" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/01/内存四区/" class="archive-article-date">
-  	<time datetime="2017-11-01T07:33:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/01/内存四区/">内存四区</a>
+    <h1 class="article-title" itemprop="name">
+      内存四区
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/11/01/内存四区/" class="archive-article-date">
+  	<time datetime="2017-11-01T07:33:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>内存四区包含静态区、代码区、堆区、栈区</p>
+<blockquote>
+<p>静态区</p>
+</blockquote>
+<p>全局变量和静态变量存储在静态区</p>
+<blockquote>
+<p>堆区</p>
+</blockquote>
+<p>malloc的变量放在堆区，堆区一般由程序员分配释放。若程序员不释放，程序结束时可由操作系统回收。其分配方式类似于链表，在内存中的分布不是连续的，它们是不同区域的内存块通过指针链接起来的。一旦某一节点从链中断开，我们就要人为的将断开的节点从内存中释放。</p>
+<ul>
+<li>堆的增长方式<br>由低地址向高地址<blockquote>
+<p>栈区</p>
+</blockquote>
+</li>
+</ul>
+<p>局部变量存在栈区，由编译器自动分配释放，存放函数的参数值、局部变量的值。其操作方式类似数组，它的内存分配是连续分配的，即分配的内存是一块连续的内存区域。当声明变量时，编译器会自动接着当前栈区的结尾继续分配内存。</p>
+<ul>
+<li>栈的增长方式<br>由高地址向低地址，函数参数载入时由右向左<blockquote>
+<p>常量区</p>
+</blockquote>
+</li>
+</ul>
+<p>常量字符串存放于此，程序结束后由系统自动释放</p>
+<blockquote>
+<p>代码区</p>
+</blockquote>
+<p>存放函数体的二进制代码<br>一个正常的程序在内存中通常分为程序段、数据段和堆栈三部分。程序段放着程序的机器码、只读数据。这个段通常是只读，对它的写操作是非法的。数据段放的是程序中的静态数据，动态数据则通过堆栈来存放。</p>
+<p>内存低端——-<br>   <strong>程序段</strong><br>   <strong>数据段</strong><br>   <strong>堆  栈</strong><br>内存高端——-</p>
+<blockquote>
+<p>堆栈是内存中的一个连续的块，一个叫堆栈指针的寄存器（SP）指向堆栈的栈顶，堆栈的底部是一个固定地址。堆栈有一个特点就是，后进先出。也就是说，后放入的数据第一个取出。它支持两个操作，PUSH和POP。PUSH是将数据放到栈的顶端，POP是将栈顶的数据取出。</p>
+<p>在高级语言中，程序函数调用、函数中的临时变量都用到堆栈。为什么呢？因为在调用一个函数时，我们需要对当前的操作进行保护，也为了函数执行后，程序可以正确的找到地方继续执行，所以参数的传递和返回值也用到了堆栈。</p>
+<p>通常对局部变量的引用是通过给出它们对SP的偏移量来实现的，另外还有一个基址指针（FP，在Intel芯片中是BP），许多编译器实际上是用它来引用本地变量和参数的。<br>通常，参数的相对FP的偏移是正的，局部变量是负的。 </p>
+<p>当程序中发生函数调用时，计算机做如下操作：首先把参数压入堆栈；然后保存指令寄存器(IP)中的内容，做为返回地址(RET)；第三个放入堆栈的是基址寄存器(FP)；然后把当前的栈指针(SP)拷贝到FP，做为新的基地址；最后为本地变量留出一定空间，把SP减去适当的数值。    </p>
+</blockquote>
+<h2 id="堆和栈的基础知识"><a href="#堆和栈的基础知识" class="headerlink" title="堆和栈的基础知识"></a>堆和栈的基础知识</h2><h3 id="申请方式"><a href="#申请方式" class="headerlink" title="申请方式"></a>申请方式</h3><ul>
+<li>栈<br>系统自动分配，声明局部变量int b;<br>系统自动在栈中为b分配空间</li>
+<li>堆<br>程序员自己申请，并指明大小，在C中使用malloc函数，如p1 = (char *)malloc(10);<br>在C++中使用new运算符。但是，p1和p2本身是在栈中存储的。<h3 id="申请后系统的响应"><a href="#申请后系统的响应" class="headerlink" title="申请后系统的响应"></a>申请后系统的响应</h3></li>
+<li>栈<br>只要栈的剩余空间大于所申请的空间，系统就为程序提供内存，否则将异常提示栈溢出</li>
+<li>堆<br>在操作系统中，有一个记录空闲内存地址的链表。当系统收到程序申请内存空间时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序。另外，对大多数系统来说，会在这块内存空间的首地址处记录本次分配的大小。这样，代码中的delete语句才能释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统自动会将多余的那部分重新放入空闲链表中。<h3 id="申请大小的限制"><a href="#申请大小的限制" class="headerlink" title="申请大小的限制"></a>申请大小的限制</h3></li>
+<li>栈<br>在Windows中，栈是向低地址扩展的数据结构，是一块连续的内存区域，即栈顶的地址和栈的最大容量是系统预先规定好的。在Windows下，栈的大小是2M（它是编译时就确定的常数）。若申请的空间超过栈的剩余空间时，将提示overflow。因此，能从栈获得的空间较小。</li>
+<li>堆<br>堆是向高地址扩展的数据结构，是不连续的内存区域。由于系统是用链表来存储空闲的内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆得大小受限于计算机系统中有效的虚拟内存。由此可知，堆获得的空间比较灵活，也比较大。<h3 id="申请效率的比较"><a href="#申请效率的比较" class="headerlink" title="申请效率的比较"></a>申请效率的比较</h3></li>
+<li>栈<br>由系统自动分配，速度较快，但程序员无法控制。</li>
+<li>堆<br>用户由new分配的内存，一般速度比较慢，而且容易产生内存碎片，不过用起来方便。</li>
+</ul>
+<p>在Windows下，最好的方式是用VirtualAlloc分配内存，它不在堆，也不在栈，是直接在进程的地址空间中保留一块内存。虽然用起来最不方便，但是速度快，也最灵活。</p>
+<h3 id="堆和栈的存储内容"><a href="#堆和栈的存储内容" class="headerlink" title="堆和栈的存储内容"></a>堆和栈的存储内容</h3><hr>
+<ul>
+<li>栈<br>在函数调用时，第一个进栈的是主函数中被调函数的下一条可执行语句的地址。然后是函数的各个参数，在大多数C编译器中，参数是由右往左入栈的，接着是函数中的局部变量。其中，静态变量是不入栈的。<br>当本次函数调用结束后，局部变量先出栈，然后是函数参数，最后是栈顶指针指向最开始存的地址，即主函数中的下一条指令，程序由该点继续往下执行。</li>
+<li>堆<br>一般是在堆得头部用一个字节存放堆得大小，堆中具体内容由程序员安排。<h3 id="存取效率的比较"><a href="#存取效率的比较" class="headerlink" title="存取效率的比较"></a>存取效率的比较</h3></li>
+</ul>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> s1[] = <span class="string">"aaaaaaaa"</span>;</div><div class="line"><span class="keyword">char</span> *s2 = <span class="string">"bbbbb"</span>;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>aaaaaaaa是在运行时进行赋值的，bbbbb是在编译时就确定了的。但是，在以后的存取中，在栈上的数组比指针所指向的字符串（如堆）快。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> a = <span class="number">1</span>;</div><div class="line">	<span class="keyword">char</span> c[] = <span class="string">"123456"</span>;</div><div class="line">	<span class="keyword">char</span> *p = <span class="string">"123456"</span>;</div><div class="line">	a = c[<span class="number">1</span>];</div><div class="line">	a = p[<span class="number">1</span>];</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对应的汇编：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="number">10</span>: a = c[<span class="number">1</span>];   </div><div class="line"><span class="number">00401067</span> <span class="number">8</span>A <span class="number">4</span>D F1 mov cl,byte ptr [ebp<span class="number">-0F</span>h]   </div><div class="line"><span class="number">0040106</span>A <span class="number">88</span> <span class="number">4</span>D FC mov byte ptr [ebp<span class="number">-4</span>],cl   </div><div class="line"><span class="number">11</span>: a = p[<span class="number">1</span>];   </div><div class="line"><span class="number">0040106</span>D <span class="number">8B</span> <span class="number">55</span> EC mov edx,dword ptr [ebp<span class="number">-14</span>h]   </div><div class="line"><span class="number">00401070</span> <span class="number">8</span>A <span class="number">42</span> <span class="number">01</span> mov al,byte ptr [edx+<span class="number">1</span>]   </div><div class="line"><span class="number">00401073</span> <span class="number">88</span> <span class="number">45</span> FC mov byte ptr [ebp<span class="number">-4</span>],al</div></pre></td></tr></table></figure></p>
+<p>第一种在读取时直接将字符串中的元素读到寄存器cl中，而第二种则先把指针值读取到edx中，再根据edx读取字符串。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>堆和栈的区别：<br>使用栈就如去饭店吃饭，只需点菜（申请内存），付钱并吃（使用），不必做扫尾等工作，好处是快捷，但自由度小；<br>使用堆就如自己做菜，做自己想吃的，自由行大；<br>这里的堆实际指满足堆性质的优先队列的一种数据结构，第一个元素有最高的优先权；栈实际上是满足先进后出的性质的数据结构。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -204,359 +265,127 @@ var _hmt = _hmt || [];
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://wonderxiao.github.io/2017/11/01/内存四区/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/27/视频直播/" class="archive-article-date">
-  	<time datetime="2017-10-27T12:41:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/27/视频直播/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">视频直播</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/27/视频直播/">视频直播</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/16/hello-world/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:36:21.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/16/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTM2NS83OTI4">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/16/linux内存分配函数/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:30:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/16/linux内存分配函数/">linux内存分配函数</a>
-    </h1>
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+    </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+   
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存分配</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/16/类型转换/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:28:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/16/类型转换/">类型转换</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">类型转换</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/16/网络通信关键函数理解/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/16/网络通信关键函数理解/">网络通信关键函数理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">类型转换</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">socket编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/12/GitHub上搭建博客-增加相册功能/" class="archive-article-date">
-  	<time datetime="2017-10-12T11:34:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/12/GitHub上搭建博客-增加相册功能/">GitHub上搭建博客&amp;增加相册功能</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">相册</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/12/互联网分层架构/" class="archive-article-date">
-  	<time datetime="2017-10-12T01:57:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/12/互联网分层架构/">互联网分层架构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/12/Linux内核学习/" class="archive-article-date">
-  	<time datetime="2017-10-12T01:08:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/12/Linux内核学习/">Linux内核学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux内核</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">进程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/22/单位转换/" class="archive-article-date">
-  	<time datetime="2017-06-22T08:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/22/单位转换/">bit、Byte、bps、Bps、pps、Gbps的单位详细说明及换算</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单位转换</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -589,8 +418,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
