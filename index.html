@@ -600,7 +600,7 @@ var _hmt = _hmt || [];
 <p>因此，可理解成：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch1 = m[m[pp1]]; <span class="comment">// 解二级指针引用</span></div></pre></td></tr></table></figure></p>
 <p>同样地，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch2 = *p1;</div><div class="line">可理解成：</div><div class="line"><span class="keyword">char</span> ch2 = m[p1];<span class="comment">// 解指针引用</span></div></pre></td></tr></table></figure></p>
 <p>在汇编层面，就是按上述叙述理解，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MOV EAX, [EDA + <span class="number">8</span>]</div><div class="line">CALL EAX</div></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当你想动态分配内存给二维数组，如矩阵、表等的时候，就可以使用(**)这种二级指针进行操作了。简单地说，二级指针能够修改上一级的指针，就像一级指针能修改其指向的值。<br>同时，二级指针相对于一级指针来说，其减少了函数传参，如需传一个*offset来指示函数调用后的偏移量，而若传二级指针，则在函数调用后，指针就自动直接指向偏移后的地址了。<br>另一方面，二级指针，只是指向的变量换成指针了而已。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当你想动态分配内存给二维数组，如矩阵、表等的时候，就可以使用(* *)这种二级指针进行操作了。简单地说，二级指针能够修改上一级的指针，就像一级指针能修改其指向的值。<br>同时，二级指针相对于一级指针来说，其减少了函数传参，如需传一个*offset来指示函数调用后的偏移量，而若传二级指针，则在函数调用后，指针就自动直接指向偏移后的地址了。<br>另一方面，二级指针，只是指向的变量换成指针了而已。</p>
 
       
 
@@ -1449,15 +1449,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1473,6 +1465,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
               </li>
              
@@ -1481,15 +1477,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
             
             <div class="clearfix"></div>
