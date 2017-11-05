@@ -17,6 +17,7 @@
 <meta property="og:locale" content="942286384@qq.com">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_直播1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_CDN%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_liveStructure.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2014-10-27_CDN%E7%9B%B4%E6%92%AD%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-11-05_%E7%BD%91%E7%BB%9C%E6%97%B6%E5%BB%B6.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-05_%E7%BD%91%E7%BB%9C%E4%B8%A2%E5%8C%85.png">
@@ -24,7 +25,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-11-05_132701.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-11-05_133127.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-11-05_133412.png">
-<meta property="og:updated_time" content="2017-11-05T05:38:54.597Z">
+<meta property="og:updated_time" content="2017-11-05T05:43:17.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="视频直播">
 <meta name="twitter:description" content="整个直播流程分为几个关键步骤：  主播客户端，将本地采集的视频推送到CDN CDN对视频流进行缓存以及转发 观众客户端，拉取CDN中缓存的视频流进行播放CDN技术原理CDN全称为Content Delivery Network，即内容分发网络，是一个策略性部署的整体系统，主要用来解决由于网络带宽小、用户访问量大、网点分布不均与等导致用户访问网站速度慢的问题。从上可看出，通过增加新的一层网络架构，将">
@@ -194,10 +195,7 @@ var _hmt = _hmt || [];
 <ul>
 <li>主播客户端，将本地采集的视频推送到CDN</li>
 <li>CDN对视频流进行缓存以及转发</li>
-<li>观众客户端，拉取CDN中缓存的视频流进行播放<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_直播1.png" alt="直播架构"><h2 id="CDN技术原理"><a href="#CDN技术原理" class="headerlink" title="CDN技术原理"></a>CDN技术原理</h2>CDN全称为Content Delivery Network，即内容分发网络，是一个策略性部署的整体系统，主要用来解决由于网络带宽小、用户访问量大、网点分布不均与等导致用户访问网站速度慢的问题。<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_CDN%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="CDN架构"><br>从上可看出，通过增加新的一层网络架构，将网站的内容发布到离用户最近的网络节点上。这样，用户就可以就近获取所需内容，解决之前网络拥塞、访问延迟高的问题，提高用户体验。<br>对于直播业务来说，则将Web服务器换成主播客户端，如下图所示。</li>
-</ul>
-<p>由于视频占用带宽大，与普通Web服务差别较大，这样CDN优势更明显：<br>网络拥塞减少，访问延迟降低，带宽得到更好的控制。</p>
-<h2 id="CDN直播中常用的流媒体协议"><a href="#CDN直播中常用的流媒体协议" class="headerlink" title="CDN直播中常用的流媒体协议"></a>CDN直播中常用的流媒体协议</h2><ul>
+<li>观众客户端，拉取CDN中缓存的视频流进行播放<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_直播1.png" alt="直播架构"><h2 id="CDN技术原理"><a href="#CDN技术原理" class="headerlink" title="CDN技术原理"></a>CDN技术原理</h2>CDN全称为Content Delivery Network，即内容分发网络，是一个策略性部署的整体系统，主要用来解决由于网络带宽小、用户访问量大、网点分布不均与等导致用户访问网站速度慢的问题。<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_CDN%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="CDN架构"><br>从上可看出，通过增加新的一层网络架构，将网站的内容发布到离用户最近的网络节点上。这样，用户就可以就近获取所需内容，解决之前网络拥塞、访问延迟高的问题，提高用户体验。<br>对于直播业务来说，则将Web服务器换成主播客户端，如下图所示。<br><img src="https://raw.githubusercontent.com/wonderxiao/BlogPicture/master/photos/2017-10-27_liveStructure.png" alt=""><br>由于视频占用带宽大，与普通Web服务差别较大，这样CDN优势更明显：<br>网络拥塞减少，访问延迟降低，带宽得到更好的控制。<h2 id="CDN直播中常用的流媒体协议"><a href="#CDN直播中常用的流媒体协议" class="headerlink" title="CDN直播中常用的流媒体协议"></a>CDN直播中常用的流媒体协议</h2></li>
 <li>RTMP<br>Real Time Messaging Protocol，是基于TCP，由Adobe公司为Flash播放器和服务器之间音频、视频传输开发的开放协议</li>
 <li>HLS<br>HTTP Live Streaming，是基于HTTP的，是Apple公司开放的音视频传输协议</li>
 <li>HTTP FLV<br>将RTMP封装在HTTP协议之上的，可以更好的穿透防火墙等<blockquote>
@@ -495,22 +493,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">相册</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
               </li>
              
@@ -523,6 +505,22 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">相册</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -531,11 +529,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
