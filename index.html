@@ -161,57 +161,6 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-汇编" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
-<li>反汇编指令使用<br>gdb disas [function-name]<br>objdump -d/-D obj-name对整个程序进行反汇编<br>通过这个反汇编可以发现main函数并非一个程序的入口，而是__start函数</li>
-</ul>
-<p>函数调用时入栈的顺序是编译时确定的，函数调用之前需要入栈的主要是函数参数，而参数都是固定，可变参数只是用宏确定偏移量。<br>调用函数的代码放在代码段。入栈是以指令方式进行的，所以都是编译时确定了的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/02/汇编/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-内存四区" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -481,6 +430,87 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-汇编" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/17/汇编/">汇编</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/17/汇编/" class="archive-article-date">
+  	<time datetime="2017-10-17T08:30:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<li>反汇编指令使用<br>gdb disas [function-name]<br>objdump -d/-D obj-name对整个程序进行反汇编<br>通过这个反汇编可以发现main函数并非一个程序的入口，而是__start函数</li>
+</ul>
+<p>函数调用时入栈的顺序是编译时确定的，函数调用之前需要入栈的主要是函数参数，而参数都是固定，可变参数只是用宏确定偏移量。<br>调用函数的代码放在代码段。入栈是以指令方式进行的，所以都是编译时确定了的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">汇编</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/17/汇编/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -572,7 +602,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">#<span class="meta"># memset()函数</span></div><div class="line">原型：<span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *buffer, <span class="keyword">int</span> c, <span class="keyword">int</span> count)</span></span></div><div class="line">用法：#include&lt;string.h&gt;</div><div class="line">功能：将buffer所指向内存区域的前count个字节置成c</div><div class="line">说明：返回指向buffer的指针</div><div class="line">``` c</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+<h2 id="memset-函数"><a href="#memset-函数" class="headerlink" title="memset()函数"></a>memset()函数</h2><p>原型：extern void <em>memset(void </em>buffer, int c, int count)<br>用法：#include<string.h><br>功能：将buffer所指向内存区域的前count个字节置成c<br>说明：返回指向buffer的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
 <h2 id="setmem-函数"><a href="#setmem-函数" class="headerlink" title="setmem()函数"></a>setmem()函数</h2><p>原型：extern void setmem(void *buf, unsigned int count, char ch)<br>功能：把buf所指内存区域前count个字节设置成字符ch<br>说明：返回指向buf的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  setmem(s,<span class="number">6</span>,<span class="string">'G'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>在LINUX平台上是支持bzero的，但是其并不在ANSI C中定义，也就是不属于C的库函数</strong><br>在C/C++ code上<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(a, b)             memset(a, 0, b)</span></div></pre></td></tr></table></figure></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在初始化内存空间时，尽量使用memset()函数，由于其属于标准C的库函数，而各方面支持的都好。同时，其返回值是指向需分配的buffer的指针，能够进行很好的参数传递。 </p>
@@ -1396,7 +1427,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1412,15 +1447,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">

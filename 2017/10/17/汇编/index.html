@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wonderxiao.github.io">
-  <title>思想直播信号</title>
+  <title>汇编 | 思想直播信号</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="说明 反汇编指令使用gdb disas [function-name]objdump -d/-D obj-name对整个程序进行反汇编通过这个反汇编可以发现main函数并非一个程序的入口，而是__start函数  函数调用时入栈的顺序是编译时确定的，函数调用之前需要入栈的主要是函数参数，而参数都是固定，可变参数只是用宏确定偏移量。调用函数的代码放在代码段。入栈是以指令方式进行的，所以都是编译时确定">
+<meta name="keywords" content="linux,汇编">
 <meta property="og:type" content="article">
-<meta property="og:title" content="思想直播信号">
-<meta property="og:url" content="https://wonderxiao.github.io/2017/11/02/汇编/index.html">
+<meta property="og:title" content="汇编">
+<meta property="og:url" content="https://wonderxiao.github.io/2017/10/17/汇编/index.html">
 <meta property="og:site_name" content="思想直播信号">
 <meta property="og:description" content="说明 反汇编指令使用gdb disas [function-name]objdump -d/-D obj-name对整个程序进行反汇编通过这个反汇编可以发现main函数并非一个程序的入口，而是__start函数  函数调用时入栈的顺序是编译时确定的，函数调用之前需要入栈的主要是函数参数，而参数都是固定，可变参数只是用宏确定偏移量。调用函数的代码放在代码段。入栈是以指令方式进行的，所以都是编译时确定">
 <meta property="og:locale" content="942286384@qq.com">
-<meta property="og:updated_time" content="2017-11-02T12:16:27.629Z">
+<meta property="og:updated_time" content="2017-11-11T02:00:43.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="思想直播信号">
+<meta name="twitter:title" content="汇编">
 <meta name="twitter:description" content="说明 反汇编指令使用gdb disas [function-name]objdump -d/-D obj-name对整个程序进行反汇编通过这个反汇编可以发现main函数并非一个程序的入口，而是__start函数  函数调用时入栈的顺序是编译时确定的，函数调用之前需要入栈的主要是函数参数，而参数都是固定，可变参数只是用宏确定偏移量。调用函数的代码放在代码段。入栈是以指令方式进行的，所以都是编译时确定">
   
     <link rel="alternative" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
@@ -163,6 +164,21 @@ var _hmt = _hmt || [];
             <article id="post-汇编" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      汇编
+    </h1>
+  
+
+        
+        <a href="/2017/10/17/汇编/" class="archive-article-date">
+  	<time datetime="2017-10-17T08:30:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-17</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
@@ -177,6 +193,21 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">汇编</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -227,7 +258,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://wonderxiao.github.io/2017/11/02/汇编/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://wonderxiao.github.io/2017/10/17/汇编/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -241,9 +272,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
+    <a href="/2017/10/27/视频直播/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          视频直播
+        
+      </div>
+    </a>
   
-    <a href="/2017/11/01/内存四区/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">内存四区</div>
+  
+    <a href="/2017/10/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -416,7 +456,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,15 +476,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">

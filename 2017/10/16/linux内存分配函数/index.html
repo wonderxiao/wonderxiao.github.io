@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://wonderxiao.github.io">
   <title>linux内存分配函数 | 思想直播信号</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数1234567891011121314151617181920212223242526#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;stri">
+  <meta name="description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数123456789101112#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;string.h&amp;gt;int main()&amp;#123;   s">
 <meta name="keywords" content="linux,内存分配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux内存分配函数">
 <meta property="og:url" content="https://wonderxiao.github.io/2017/10/16/linux内存分配函数/index.html">
 <meta property="og:site_name" content="思想直播信号">
-<meta property="og:description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数1234567891011121314151617181920212223242526#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;stri">
+<meta property="og:description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数123456789101112#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;string.h&amp;gt;int main()&amp;#123;   s">
 <meta property="og:locale" content="942286384@qq.com">
-<meta property="og:updated_time" content="2017-10-16T08:44:09.984Z">
+<meta property="og:updated_time" content="2017-11-11T01:59:59.907Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux内存分配函数">
-<meta name="twitter:description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数1234567891011121314151617181920212223242526#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;stri">
+<meta name="twitter:description" content="bzero()函数原型：extern void bzero(void *s, int n)用法：#include功能：置字符串s的前n个字节为零且包括’\0’说明：bzero无返回值，推荐使用memset()代替bzero()函数123456789101112#include &amp;lt;syslib.h&amp;gt;#include &amp;lt;string.h&amp;gt;int main()&amp;#123;   s">
   
     <link rel="alternative" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
   
@@ -181,7 +181,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">#<span class="meta"># memset()函数</span></div><div class="line">原型：<span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *buffer, <span class="keyword">int</span> c, <span class="keyword">int</span> count)</span></span></div><div class="line">用法：#include&lt;string.h&gt;</div><div class="line">功能：将buffer所指向内存区域的前count个字节置成c</div><div class="line">说明：返回指向buffer的指针</div><div class="line">``` c</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+<h2 id="memset-函数"><a href="#memset-函数" class="headerlink" title="memset()函数"></a>memset()函数</h2><p>原型：extern void <em>memset(void </em>buffer, int c, int count)<br>用法：#include<string.h><br>功能：将buffer所指向内存区域的前count个字节置成c<br>说明：返回指向buffer的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
 <h2 id="setmem-函数"><a href="#setmem-函数" class="headerlink" title="setmem()函数"></a>setmem()函数</h2><p>原型：extern void setmem(void *buf, unsigned int count, char ch)<br>功能：把buf所指内存区域前count个字节设置成字符ch<br>说明：返回指向buf的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  setmem(s,<span class="number">6</span>,<span class="string">'G'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>在LINUX平台上是支持bzero的，但是其并不在ANSI C中定义，也就是不属于C的库函数</strong><br>在C/C++ code上<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(a, b)             memset(a, 0, b)</span></div></pre></td></tr></table></figure></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在初始化内存空间时，尽量使用memset()函数，由于其属于标准C的库函数，而各方面支持的都好。同时，其返回值是指向需分配的buffer的指针，能够进行很好的参数传递。 </p>
@@ -456,7 +457,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,15 +477,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">
