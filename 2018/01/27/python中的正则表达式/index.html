@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="思想直播信号">
 <meta property="og:description" content="正则表达式中常用字符含义 普通字符和11个元字符：     普通字符 匹配自身 abc abc      . 匹配任意除换行符”\n”外的字符 a.c abc      \ 转义字符，使后一个字符改变原来的意思 a.c;a\c a.c;a\c       * 匹配前一个字符0或多次 abc* ab;abc;cc     + 匹配一个字符1次或无限次 abc+ abc;abccc   ? 匹配一个字">
 <meta property="og:locale" content="942286384@qq.com">
-<meta property="og:updated_time" content="2018-01-27T07:09:54.753Z">
+<meta property="og:updated_time" content="2018-01-27T07:20:01.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的正则表达式">
 <meta name="twitter:description" content="正则表达式中常用字符含义 普通字符和11个元字符：     普通字符 匹配自身 abc abc      . 匹配任意除换行符”\n”外的字符 a.c abc      \ 转义字符，使后一个字符改变原来的意思 a.c;a\c a.c;a\c       * 匹配前一个字符0或多次 abc* ab;abc;cc     + 匹配一个字符1次或无限次 abc+ abc;abccc   ? 匹配一个字">
@@ -352,17 +352,20 @@ var _hmt = _hmt || [];
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">(?P<name>)</name></td>
+<td style="text-align:center">(?P\<name>)</name></td>
 <td style="text-align:left">分组除了原有的编号外再指定一个额外的别名</td>
-<td style="text-align:center">(?P<id>abc){2}</id></td>
-<td style="text-align:center">abcabc                          (?P=name)</td>
-<td>引用别名为<name>的分组匹配到字符串</name></td>
-<td>(?P<id>\d)abc(?P=id)</id></td>
-<td>1abc15abc5</td>
+<td style="text-align:center">(?P\<id>abc){2}</id></td>
+<td style="text-align:center">abcabc                          </td>
+</tr>
+<tr>
+<td style="text-align:center">(?P=name)</td>
+<td style="text-align:left">引用别名为\<name>的分组匹配到字符串</name></td>
+<td style="text-align:center">(?P\<id>\d)abc(?P=id)</id></td>
+<td style="text-align:center">1abc15abc5</td>
 </tr>
 <tr>
 <td style="text-align:center">\<number></number></td>
-<td style="text-align:left">引用编号为<number>的分组匹配到字符串</number></td>
+<td style="text-align:left">引用编号为\<number>的分组匹配到字符串</number></td>
 <td style="text-align:center">(\d)abc\1</td>
 <td style="text-align:center">1abc15abc5</td>
 </tr>
@@ -698,10 +701,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
@@ -711,6 +710,30 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,11 +753,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
+                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,31 +773,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
               </li>
             
             <div class="clearfix"></div>
