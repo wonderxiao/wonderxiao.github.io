@@ -237,14 +237,10 @@ var _hmt = _hmt || [];
 <td style="text-align:center">abc</td>
 </tr>
 <tr>
-<td style="text-align:center">\</td>
-<td style="text-align:left"></td>
-<td style="text-align:center">或，匹配\</td>
-<td style="text-align:center">左右表达式任意一个，从左到右匹配，若\</td>
-<td>没有包括在（）中，则它的范围是整个正则表达式</td>
-<td>abc</td>
-<td>def</td>
-<td>abcdef</td>
+<td style="text-align:center">&#124;</td>
+<td style="text-align:left">或，匹配&#124;左右表达式任意一个，从左到右匹配，若&#124;没有包括在（）中，则它的范围是整个正则表达式</td>
+<td style="text-align:center">abc&#124;def</td>
+<td style="text-align:center">abcdef</td>
 </tr>
 <tr>
 <td style="text-align:center">{}</td>
@@ -262,8 +258,7 @@ var _hmt = _hmt || [];
 <td style="text-align:center">()</td>
 <td style="text-align:left">被阔起来的表达式作为分组，从表达式左边开始没遇到一个分组的左括号”(“，编号+1，分组表达式作为一个整体，可接数量词。表达式中的\</td>
 <td style="text-align:center">仅在该组有效</td>
-<td style="text-align:center">(abc){2};a(123\</td>
-<td>456)c</td>
+<td style="text-align:center">(abc){2};a(123&#124;456)c</td>
 <td>abcabc;a456c</td>
 </tr>
 </tbody>
@@ -352,19 +347,19 @@ var _hmt = _hmt || [];
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">(?P\<name>)</name></td>
+<td style="text-align:center">(?P&lt;name&gt;)</td>
 <td style="text-align:left">分组除了原有的编号外再指定一个额外的别名</td>
-<td style="text-align:center">(?P\<id>abc){2}</id></td>
+<td style="text-align:center">(?P&lt;id&gt;abc){2}</td>
 <td style="text-align:center">abcabc                          </td>
 </tr>
 <tr>
 <td style="text-align:center">(?P=name)</td>
 <td style="text-align:left">引用别名为\<name>的分组匹配到字符串</name></td>
-<td style="text-align:center">(?P\<id>\d)abc(?P=id)</id></td>
+<td style="text-align:center">(?P&lt;id&gt;\d)abc(?P=id)</td>
 <td style="text-align:center">1abc15abc5</td>
 </tr>
 <tr>
-<td style="text-align:center">\<number></number></td>
+<td style="text-align:center">&lt;number&gt;</td>
 <td style="text-align:left">引用编号为\<number>的分组匹配到字符串</number></td>
 <td style="text-align:center">(\d)abc\1</td>
 <td style="text-align:center">1abc15abc5</td>
@@ -1532,7 +1527,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1548,19 +1547,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1572,15 +1559,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1593,6 +1584,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
