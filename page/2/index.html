@@ -161,6 +161,89 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-linux内存分配函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/16/linux内存分配函数/">linux内存分配函数</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/16/linux内存分配函数/" class="archive-article-date">
+  	<time datetime="2017-10-16T08:30:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+<h2 id="memset-函数"><a href="#memset-函数" class="headerlink" title="memset()函数"></a>memset()函数</h2><p>原型：extern void <em>memset(void </em>buffer, int c, int count)<br>用法：#include<string.h><br>功能：将buffer所指向内存区域的前count个字节置成c<br>说明：返回指向buffer的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
+<h2 id="setmem-函数"><a href="#setmem-函数" class="headerlink" title="setmem()函数"></a>setmem()函数</h2><p>原型：extern void setmem(void *buf, unsigned int count, char ch)<br>功能：把buf所指内存区域前count个字节设置成字符ch<br>说明：返回指向buf的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  setmem(s,<span class="number">6</span>,<span class="string">'G'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>在LINUX平台上是支持bzero的，但是其并不在ANSI C中定义，也就是不属于C的库函数</strong><br>在C/C++ code上<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(a, b)             memset(a, 0, b)</span></div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在初始化内存空间时，尽量使用memset()函数，由于其属于标准C的库函数，而各方面支持的都好。同时，其返回值是指向需分配的buffer的指针，能够进行很好的参数传递。 </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存分配</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/16/linux内存分配函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+<div class="article-inner">
+	
+</div>
+
+  
     <article id="post-类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1176,6 +1259,22 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">相册</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
               </li>
              
@@ -1188,14 +1287,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -1204,7 +1295,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1213,6 +1308,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分配函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1229,10 +1332,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,18 +1352,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">相册</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

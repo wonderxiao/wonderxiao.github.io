@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="思想直播信号">
 <meta property="og:description" content="正则表达式中常用字符含义 普通字符和11个元字符：     普通字符 匹配自身 abc abc      . 匹配任意除换行符”\n”外的字符 a.c abc      \ 转义字符，使后一个字符改变原来的意思 a.c;a\c a.c;a\c       * 匹配前一个字符0或多次 abc* ab;abc;cc     + 匹配一个字符1次或无限次 abc+ abc;abccc   ? 匹配一个字">
 <meta property="og:locale" content="942286384@qq.com">
-<meta property="og:updated_time" content="2018-01-27T07:32:18.480Z">
+<meta property="og:updated_time" content="2018-03-24T12:50:55.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的正则表达式">
 <meta name="twitter:description" content="正则表达式中常用字符含义 普通字符和11个元字符：     普通字符 匹配自身 abc abc      . 匹配任意除换行符”\n”外的字符 a.c abc      \ 转义字符，使后一个字符改变原来的意思 a.c;a\c a.c;a\c       * 匹配前一个字符0或多次 abc* ab;abc;cc     + 匹配一个字符1次或无限次 abc+ abc;abccc   ? 匹配一个字">
@@ -446,7 +446,7 @@ var _hmt = _hmt || [];
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">print(re.subn(<span class="string">'[1-2]'</span>,<span class="string">'A'</span>,<span class="string">'123456abcdef'</span>))</div><div class="line">print(re.sub(<span class="string">"g.t"</span>,<span class="string">"have"</span>,<span class="string">'I get A,  I got B ,I gut C'</span>))</div><div class="line">print(re.subn(<span class="string">"g.t"</span>,<span class="string">"have"</span>,<span class="string">'I get A,  I got B ,I gut C'</span>))</div><div class="line"></div><div class="line">执行结果如下：</div><div class="line">(<span class="string">'AA3456abcdef'</span>, <span class="number">2</span>)</div><div class="line">I have A,  I have B ,I have C</div><div class="line">(<span class="string">'I have A,  I have B ,I have C'</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure>
 <h3 id="re-match与re-search与re-findall区别："><a href="#re-match与re-search与re-findall区别：" class="headerlink" title="re.match与re.search与re.findall区别："></a>re.match与re.search与re.findall区别：</h3><p>re.match只匹配字符串的开始，如字符串开始不符合正则表达式，则匹配失败，函数返回None;<br>re.search匹配整个字符串，直到找到一个匹配</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">a=re.search(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>).group()</div><div class="line">print(a)</div><div class="line">p=re.match(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>)</div><div class="line">print(p)</div><div class="line">b=re.findall(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line"><span class="number">3</span></div><div class="line"><span class="keyword">None</span></div><div class="line">[<span class="string">'3'</span>, <span class="string">'3'</span>]</div></pre></td></tr></table></figure>
-<h3 id="贪婪匹配与非贪婪匹配"><a href="#贪婪匹配与非贪婪匹配" class="headerlink" title="贪婪匹配与非贪婪匹配"></a>贪婪匹配与非贪婪匹配</h3><p><em>?,+?,??,{m,n}?<br>前面</em>,+,?等都是贪婪匹配，即尽可能匹配，后面加?号使其变成惰性匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+?)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">[<span class="string">'2'</span>]</div><div class="line">[<span class="string">'23'</span>]</div></pre></td></tr></table></figure></p>
+<h3 id="贪婪匹配与非贪婪匹配"><a href="#贪婪匹配与非贪婪匹配" class="headerlink" title="贪婪匹配与非贪婪匹配"></a>贪婪匹配与非贪婪匹配</h3><p>*?,+?,??,{m,n}?<br>前面*,+,?等都是贪婪匹配，即尽可能匹配，后面加?号使其变成惰性匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+?)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">[<span class="string">'2'</span>]</div><div class="line">[<span class="string">'23'</span>]</div></pre></td></tr></table></figure></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.match(<span class="string">'&lt;(.*)&gt;'</span>,<span class="string">'&lt;H1&gt;title&lt;H1&gt;'</span>).group()</div><div class="line">print(a)</div><div class="line">b = re.match(<span class="string">'&lt;(.*?)&gt;'</span>,<span class="string">'&lt;H1&gt;title&lt;H1&gt;'</span>).group()</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">&lt;H1&gt;title&lt;H1&gt;</div><div class="line">&lt;H1&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+)b"</span>,<span class="string">'a3333b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+?)b"</span>,<span class="string">'a3333b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果如下：</div><div class="line">[<span class="string">'3333'</span>]</div><div class="line">[<span class="string">'3333'</span>]</div><div class="line">若前后均有限定条件的时候，就不存在什么贪婪模式了，非匹配模式失效</div></pre></td></tr></table></figure>
 <h3 id="用flags时应注意："><a href="#用flags时应注意：" class="headerlink" title="用flags时应注意："></a>用flags时应注意：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">print(re.split(<span class="string">'a'</span>,<span class="string">'1A1a2A3'</span>,re.I))<span class="comment">#输出结果并未能区分大小写</span></div><div class="line"><span class="comment">#re.split(pattern，string，maxsplit,flags)默认是四个参数</span></div><div class="line">当我们传入的三个参数的时候，系统会默认re.I是第三个参数，所以就没起作用</div><div class="line">如果想让这里的re.I起作用，写成flags=re.I即可</div></pre></td></tr></table></figure>
@@ -705,6 +705,22 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">相册</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
               </li>
              
@@ -717,14 +733,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -733,7 +741,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,6 +754,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分配函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,10 +778,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -782,18 +798,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">相册</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

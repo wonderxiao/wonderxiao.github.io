@@ -161,6 +161,119 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-内存分配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/24/内存分配/">内存分配</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/24/内存分配/" class="archive-article-date">
+  	<time datetime="2018-03-24T12:41:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h2><ul>
+<li><p>从静态存储区域分配<br>内存在程序编译时就已分配好，这块内存在程序的整个运行期间都存在，<br>如：全局变量，static变量</p>
+</li>
+<li><p>在栈上创建<br>在执行函数时，函数内局部变量的存储单元都可在栈上创建，函数执行结束时这些存储单元自动释放<br>栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限</p>
+</li>
+<li><p>从堆上分配，亦称动态内存分配<br>程序在运行时，用malloc或new申请任意多少的内存，程序员自己负责在何时使用free或delete释放内存<br>动态内存的生存期由程序员决定，使用灵活</p>
+</li>
+</ul>
+<h2 id="C语言中内存申请相关的函数"><a href="#C语言中内存申请相关的函数" class="headerlink" title="C语言中内存申请相关的函数"></a>C语言中内存申请相关的函数</h2><blockquote>
+<p>alloca、calloc、malloc、free、realloc、sbrk</p>
+</blockquote>
+<ul>
+<li>alloca是向栈申请内存，因此无需释放；malloc分配的内存位于堆中，且没初始化内存的内容。因此，在malloc之后，调用memset来初始化这部分的内存空间</li>
+<li>calloc将初始化这部分的内对空间设置为0</li>
+<li>realloc对malloc申请的内存进行大小的调整，申请的内存最终通过free来释放</li>
+<li>sbrk增加数据段的大小</li>
+<li>malloc、calloc和free都是C函数库实现的，与OS无关<br>C函数库内部通过一定的结构来保存当前有多少可用内存，若程序申请的malloc的大小超过库里所留的空间，则将先调用sbrk系统调用来增加可用空间，再进行分配空间</li>
+</ul>
+<p>free时，释放的内存并不立即返回给OS，而是保留在内部结构中。</p>
+<blockquote>
+<p>sbrk类似批发，一次性向OS申请大的内存，malloc等类似零售，满足程序运行时需求，这套机制类似缓冲。</p>
+</blockquote>
+<p>基于这套机制开发的原因：<br>  ● 系统调用不能支持任意大小的内存分配，有的系统调用只支持固定大小即其倍数的内存申请，这样会造成需使用小内存而申请大内存空间的浪费<br>  ● 系统调用申请内存代价大，涉及用户态到内核态的转换</p>
+<h2 id="malloc和calloc分配动态内存空间"><a href="#malloc和calloc分配动态内存空间" class="headerlink" title="malloc和calloc分配动态内存空间"></a>malloc和calloc分配动态内存空间</h2><p><strong>区别</strong>：</p>
+<ul>
+<li><p>malloc( )函数有一个参数，即所分配内存空间的大小<br>void *malloc(size_t size);<br>calloc( )函数有两个参数，分别为元素数目和元素大小，参数乘积为要分配的内存空间大小<br>void *calloc(size_t numElements, size_t sizeOfElement);<br>若调用成功，函数malloc( )和calloc( )都将返回所分配的内存空间的首地址</p>
+</li>
+<li><p>malloc( )不能初始化所分配的内存空间，calloc( )可以<br>若malloc函数分配的内存空间之前没使用过，则每一位可能都是0；但这部分空间曾被分配、释放或重新分配，则可能存留各种各样的数据。换句话说，即使用malloc函数的程序开始时（内存空间没重新分配）能正常运行，但经过一段时间后（内存空间）可能出现问题<br>calloc函数会将所分配的内存空间中的每一位都初始化为0</p>
+</li>
+<li>malloc函数只返回一个对象，而calloc函数会返回一个由某种对象组成的数组。如为数组分配内存空间时，可选用calloc函数</li>
+</ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ol>
+<li>在calloc函数和malloc函数之间选择时，只需考虑是否初始化所分配的内存空间，而不要考虑函数是否能返回一个数组。因为，尽管malloc并不能返回一个数组，但它所分配的内存空间仍能供一个数组使用</li>
+<li>当程序运行中有malloc时，但没有free，会造成内存泄露。由于一部分内存未被使用而又没被free，因此系统认为这部分内存仍在使用，造成不断的向系统申请内存，使系统可用内存不断减少。但是，内存泄露仅仅指程序在运行时，程序退出时，OS将回收所有资源</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存分配</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分配函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/24/内存分配/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+<div class="article-inner">
+	
+</div>
+
+  
     <article id="post-腾讯电话面试经" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -547,7 +660,7 @@ var _hmt = _hmt || [];
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">print(re.subn(<span class="string">'[1-2]'</span>,<span class="string">'A'</span>,<span class="string">'123456abcdef'</span>))</div><div class="line">print(re.sub(<span class="string">"g.t"</span>,<span class="string">"have"</span>,<span class="string">'I get A,  I got B ,I gut C'</span>))</div><div class="line">print(re.subn(<span class="string">"g.t"</span>,<span class="string">"have"</span>,<span class="string">'I get A,  I got B ,I gut C'</span>))</div><div class="line"></div><div class="line">执行结果如下：</div><div class="line">(<span class="string">'AA3456abcdef'</span>, <span class="number">2</span>)</div><div class="line">I have A,  I have B ,I have C</div><div class="line">(<span class="string">'I have A,  I have B ,I have C'</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure>
 <h3 id="re-match与re-search与re-findall区别："><a href="#re-match与re-search与re-findall区别：" class="headerlink" title="re.match与re.search与re.findall区别："></a>re.match与re.search与re.findall区别：</h3><p>re.match只匹配字符串的开始，如字符串开始不符合正则表达式，则匹配失败，函数返回None;<br>re.search匹配整个字符串，直到找到一个匹配</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">a=re.search(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>).group()</div><div class="line">print(a)</div><div class="line">p=re.match(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>)</div><div class="line">print(p)</div><div class="line">b=re.findall(<span class="string">'[\d]'</span>,<span class="string">"abc33"</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line"><span class="number">3</span></div><div class="line"><span class="keyword">None</span></div><div class="line">[<span class="string">'3'</span>, <span class="string">'3'</span>]</div></pre></td></tr></table></figure>
-<h3 id="贪婪匹配与非贪婪匹配"><a href="#贪婪匹配与非贪婪匹配" class="headerlink" title="贪婪匹配与非贪婪匹配"></a>贪婪匹配与非贪婪匹配</h3><p><em>?,+?,??,{m,n}?<br>前面</em>,+,?等都是贪婪匹配，即尽可能匹配，后面加?号使其变成惰性匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+?)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">[<span class="string">'2'</span>]</div><div class="line">[<span class="string">'23'</span>]</div></pre></td></tr></table></figure></p>
+<h3 id="贪婪匹配与非贪婪匹配"><a href="#贪婪匹配与非贪婪匹配" class="headerlink" title="贪婪匹配与非贪婪匹配"></a>贪婪匹配与非贪婪匹配</h3><p>*?,+?,??,{m,n}?<br>前面*,+,?等都是贪婪匹配，即尽可能匹配，后面加?号使其变成惰性匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+?)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+)"</span>,<span class="string">'a23b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">[<span class="string">'2'</span>]</div><div class="line">[<span class="string">'23'</span>]</div></pre></td></tr></table></figure></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = re.match(<span class="string">'&lt;(.*)&gt;'</span>,<span class="string">'&lt;H1&gt;title&lt;H1&gt;'</span>).group()</div><div class="line">print(a)</div><div class="line">b = re.match(<span class="string">'&lt;(.*?)&gt;'</span>,<span class="string">'&lt;H1&gt;title&lt;H1&gt;'</span>).group()</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果：</div><div class="line">&lt;H1&gt;title&lt;H1&gt;</div><div class="line">&lt;H1&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a = re.findall(<span class="string">r"a(\d+)b"</span>,<span class="string">'a3333b'</span>)</div><div class="line">print(a)</div><div class="line">b = re.findall(<span class="string">r"a(\d+?)b"</span>,<span class="string">'a3333b'</span>)</div><div class="line">print(b)</div><div class="line"></div><div class="line">执行结果如下：</div><div class="line">[<span class="string">'3333'</span>]</div><div class="line">[<span class="string">'3333'</span>]</div><div class="line">若前后均有限定条件的时候，就不存在什么贪婪模式了，非匹配模式失效</div></pre></td></tr></table></figure>
 <h3 id="用flags时应注意："><a href="#用flags时应注意：" class="headerlink" title="用flags时应注意："></a>用flags时应注意：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">print(re.split(<span class="string">'a'</span>,<span class="string">'1A1a2A3'</span>,re.I))<span class="comment">#输出结果并未能区分大小写</span></div><div class="line"><span class="comment">#re.split(pattern，string，maxsplit,flags)默认是四个参数</span></div><div class="line">当我们传入的三个参数的时候，系统会默认re.I是第三个参数，所以就没起作用</div><div class="line">如果想让这里的re.I起作用，写成flags=re.I即可</div></pre></td></tr></table></figure>
@@ -1317,89 +1430,6 @@ var _hmt = _hmt || [];
 </div>
 
   
-    <article id="post-linux内存分配函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/linux内存分配函数/">linux内存分配函数</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/16/linux内存分配函数/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:30:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="bzero-函数"><a href="#bzero-函数" class="headerlink" title="bzero()函数"></a>bzero()函数</h2><p>原型：extern void bzero(void *s, int n)<br>用法：#include<string.h><br>功能：置字符串s的前n个字节为零且包括’\0’<br>说明：bzero无返回值，推荐使用memset()代替bzero()函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> a;</div><div class="line">    <span class="keyword">char</span> s[<span class="number">5</span>];</div><div class="line">    <span class="keyword">float</span> f;</div><div class="line">  &#125; tt;</div><div class="line">  <span class="keyword">char</span> s[<span class="number">20</span>];</div><div class="line">  bzero(&amp;tt,<span class="keyword">sizeof</span>(tt));</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
-<h2 id="memset-函数"><a href="#memset-函数" class="headerlink" title="memset()函数"></a>memset()函数</h2><p>原型：extern void <em>memset(void </em>buffer, int c, int count)<br>用法：#include<string.h><br>功能：将buffer所指向内存区域的前count个字节置成c<br>说明：返回指向buffer的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  <span class="built_in">memset</span>(s,<span class="string">'G'</span>,<span class="number">6</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></string.h></p>
-<h2 id="setmem-函数"><a href="#setmem-函数" class="headerlink" title="setmem()函数"></a>setmem()函数</h2><p>原型：extern void setmem(void *buf, unsigned int count, char ch)<br>功能：把buf所指内存区域前count个字节设置成字符ch<br>说明：返回指向buf的指针<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;syslib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123; </div><div class="line">  <span class="keyword">char</span> *s=<span class="string">"Golden Global View"</span>;</div><div class="line">  clrscr();</div><div class="line">  setmem(s,<span class="number">6</span>,<span class="string">'G'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>在LINUX平台上是支持bzero的，但是其并不在ANSI C中定义，也就是不属于C的库函数</strong><br>在C/C++ code上<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(a, b)             memset(a, 0, b)</span></div></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在初始化内存空间时，尽量使用memset()函数，由于其属于标准C的库函数，而各方面支持的都好。同时，其返回值是指向需分配的buffer的指针，能够进行很好的参数传递。 </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存分配</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/16/linux内存分配函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-<div class="article-inner">
-	
-</div>
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1498,6 +1528,22 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">相册</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
               </li>
              
@@ -1510,14 +1556,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -1526,7 +1564,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1535,6 +1577,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分配函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1551,10 +1601,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1575,18 +1621,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">相册</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>
