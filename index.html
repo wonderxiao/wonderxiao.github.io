@@ -161,6 +161,118 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-协议栈分析（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/24/协议栈分析（一）/">协议栈分析（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/24/协议栈分析（一）/" class="archive-article-date">
+  	<time datetime="2018-03-24T12:55:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="协议栈在Linux中的位置"><a href="#协议栈在Linux中的位置" class="headerlink" title="协议栈在Linux中的位置"></a>协议栈在Linux中的位置</h2><p><img src="https://upload-images.jianshu.io/upload_images/11305942-f035c067a6cbd9c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IP_STACK"></p>
+<h2 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h2><p><img src="https://upload-images.jianshu.io/upload_images/11305942-fa1bf798cea19287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OSI七层模型"></p>
+<h2 id="IP作用"><a href="#IP作用" class="headerlink" title="IP作用"></a>IP作用</h2><p><img src="https://upload-images.jianshu.io/upload_images/11305942-d7a2eee6f25b4cfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IP作用"></p>
+<ul>
+<li>IP是连接传输链路层和传输层额中枢，不仅为数据在系统上下方向上传输，也为机器间在水平方向上进行数据传输，将链路层简称为2层或L2，网络层为3层或L3，传输层为4层或L4</li>
+<li>ETH代表以太网功能，是2层功能的具体实现</li>
+<li>ARP是2层和3层之间的连接层，可认为是2.5层协议</li>
+<li>L2协议包括PPP、SLIP及Ethernet，都为底层传输协议</li>
+</ul>
+<blockquote>
+<p>每一类软件模块都不能独立存在，必须依托系统其他模块的支持才能正常工作。由于协议栈在内核中实现，所以必须弄清楚操作系统是如何支持协议栈的</p>
+</blockquote>
+<ul>
+<li>下图为真实操作系统的协议栈实现<br><img src="https://upload-images.jianshu.io/upload_images/11305942-b8f534f08a32f833.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="协议栈实现"><br>通过上图可以知道，在操作系统实现协议栈额过程中，有两个模块很重要——<strong>glibc库</strong>和<strong>INET模块</strong></li>
+<li><p>glibc<br>提供了各种API接口供用户空间程序的系统调用，来告知内核态来进行资源调整、数据传输。不管应用层软件开发，还是嵌入式软件开发，我们使用的malloc函数、strcpy函数都是由该库提供的。同时，网络编程使用的API接口也是该库提供的。</p>
+</li>
+<li><p>INET<br>它不属于TCP/IP体系必须的一部分，但它提供了访问TCP/IP层的接口，这些接口是在网络初始化时就已注册到socket层，即是我们常说的socket、bind、connect、listen、send和recv等系统接口。这些接口内部不仅支持你上网（如AF_INET），还支持你的应用程序间的通信（如AF_UNIX）或内核与用户之间的通信（AF_NETLINK），甚至一些少见的协议（如AF_IPX），也就是说，通过这一层的实现，来封装我们经常使用的TCP/IP的接口。</p>
+</li>
+</ul>
+<h2 id="系统初始化流程"><a href="#系统初始化流程" class="headerlink" title="系统初始化流程"></a>系统初始化流程</h2><blockquote>
+<p>Linux系统的启动，指从系统加电后直至系统控制台显示“login:”登录提示符为止的系统运行阶段</p>
+</blockquote>
+<p>与该启动流程相关的代码有：<br>  ● 四个汇编程序：bootsect.S  setup.S head.S entry.S<br>  ● init目录下的main函数<br>流程如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/11305942-3d0116bd77ae70dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="系统初始化引导流程"></p>
+<ul>
+<li>与内核启动相关的函数<br><img src="https://upload-images.jianshu.io/upload_images/11305942-551a6597dcc7d813.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="内核启动函数"><br>需要关注以下几点：</li>
+<li>中断系统及调度系统</li>
+<li>文件系统初始化</li>
+<li>设备管理系统的初始化</li>
+<li>网络协议的初始化<br>由于网络系统本身关系到设备、文件系统及任务调度等方面，若这几方面的知识不整明白，那么对协议栈理解就很难了。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/24/协议栈分析（一）/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+<div class="article-inner">
+	
+</div>
+
+  
     <article id="post-内存分配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1358,78 +1470,6 @@ var _hmt = _hmt || [];
 </div>
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/16/hello-world/" class="archive-article-date">
-  	<time datetime="2017-10-16T08:36:21.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/16/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-<div class="article-inner">
-	
-</div>
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1544,26 +1584,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内存分配</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
               </li>
              
@@ -1580,11 +1600,31 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">分配函数</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存分配</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分配函数</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1604,10 +1644,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
@@ -1620,7 +1656,23 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux内核</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
             
             <div class="clearfix"></div>
