@@ -18,7 +18,7 @@
 <meta property="og:locale" content="942286384@qq.com">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11305942-53474496b8230b37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11305942-604fbc46d3d42a35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-29T07:30:43.683Z">
+<meta property="og:updated_time" content="2018-03-29T10:36:05.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="位图学习">
 <meta name="twitter:description" content="已知a.txt中有40亿个无符号整数，b.txt中有10000个无符号整数，求交集。可用内存：1G 定义位图法是bitmap的缩写，其指用每一位来存放某种状态，适用于大规模数据，但数据状态不多的情况举例说明： 1unsigned int bit[N]; 在该数组成可存储N*sizeof(int)8个数据，但最大的数只能是Nsizeof(int)*8-1。若存数据范围0~15，则使N=1即可数据为【">
@@ -186,7 +186,7 @@ var _hmt = _hmt || [];
       
         <p>已知a.txt中有40亿个无符号整数，b.txt中有10000个无符号整数，求交集。可用内存：1G</p>
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>位图法是bitmap的缩写，其指用每一位来存放某种状态，适用于大规模数据，但数据状态不多的情况<br>举例说明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unsigned int bit[N];</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> bit[N];</div></pre></td></tr></table></figure>
 <p>在该数组成可存储N*sizeof(int)<em>8个数据，但最大的数只能是N</em>sizeof(int)*8-1。若存数据范围0~15，则使N=1即可<br><img src="https://upload-images.jianshu.io/upload_images/11305942-53474496b8230b37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="位图举例"><br>数据为【5，12，1，0，4】存入后：<br><img src="https://upload-images.jianshu.io/upload_images/11305942-604fbc46d3d42a35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="位图举例2"></p>
 <h2 id="使用范围"><a href="#使用范围" class="headerlink" title="使用范围"></a>使用范围</h2><p>使用bit数组来表示某些元素是否存在，如8位电话号码等</p>
 <h2 id="位图的操作"><a href="#位图的操作" class="headerlink" title="位图的操作"></a>位图的操作</h2><p>在C++中int类型由4个字节，即32位。当有1000万条不同数据时，我们只需1000万个位来表示，也就是10000000/(8*1024*1024)MB，约为1.25MB<br>1MB=1000KB=10^6B—–百万字节<br>1GB=1000MB=10^9B—–十亿字节<br>1000万条=10^7=(10/8)*10^6 B=1.25MB</p>
@@ -196,17 +196,65 @@ var _hmt = _hmt || [];
 </blockquote>
 <ul>
 <li><p>setZero置零操作<br>将位图中第i位置零</p>
-<figure class="highlight bash"><figcaption><span>c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a[i&gt;&gt;5] &amp;= ~(1&lt;&lt;(i&amp;31));</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a[i&gt;&gt;<span class="number">5</span>] &amp;= ~(<span class="number">1</span>&lt;&lt;(i&amp;<span class="number">31</span>));</div></pre></td></tr></table></figure>
 </li>
 <li><p>setOne置位操作<br>将位图中的第i位设置为1，即将a[i/32]的第（i%32）位设置为1。</p>
-<figure class="highlight bash"><figcaption><span>c   </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a[i&gt;&gt;5] |= (1&lt;&lt;(i&amp;31));</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a[i&gt;&gt;<span class="number">5</span>] |= (<span class="number">1</span>&lt;&lt;(i&amp;<span class="number">31</span>));</div></pre></td></tr></table></figure>
 </li>
 <li><p>getState获取状态操作<br>判断第i位是否为1，得到的值大于0，说明该位值为1，否则为0</p>
-<figure class="highlight bash"><figcaption><span>c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">return</span> a[i&gt;&gt;5] &amp;(1&lt;&lt;(i&amp;31));</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> a[i&gt;&gt;<span class="number">5</span>] &amp;(<span class="number">1</span>&lt;&lt;(i&amp;<span class="number">31</span>));</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;fstream&gt;</span></div><div class="line">using namespace std;</div><div class="line"></div><div class="line"><span class="comment">#define BIT_INT 32</span></div><div class="line"><span class="comment">#define SHIFT 5</span></div><div class="line"><span class="comment">#define MASK 0x1f</span></div><div class="line"><span class="comment">#define N 4294967296</span></div><div class="line"></div><div class="line">unsigned int *a = NULL;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">createALL</span></span>()&#123;</div><div class="line">	a = new unsigned int[1+N/BIT_INT];</div><div class="line">&#125;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">deleteALL</span></span>()&#123;</div><div class="line">	delete[] a;</div><div class="line">    a = NULL;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">SetAllZero</span></span>()&#123;</div><div class="line">	memset(a,0,(1+N/BIT_INT)*sizeof(unsigned int));</div><div class="line">&#125;</div><div class="line"></div><div class="line">void setOne(unsigned int i)&#123;</div><div class="line">	a[i &gt;&gt; SHIFT] |= (1&lt;&lt;(i&amp;MASK));</div><div class="line">&#125;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">setZero</span></span>()&#123;</div><div class="line">	a[i &gt;&gt; SHIFT] &amp;= ~(1&lt;&lt;(i&amp;MASK));</div><div class="line">&#125;</div><div class="line"></div><div class="line">int getState(unsigned int i)&#123;</div><div class="line">	<span class="built_in">return</span> (a[i &gt;&gt; SHIFT] &amp;(1 &lt;&lt; (i&amp;MASK)));</div><div class="line">&#125;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">setStateFromFile</span></span>()&#123;</div><div class="line">  ifstream cin(<span class="string">"a.txt"</span>);</div><div class="line">  unsigned int n;</div><div class="line">  <span class="keyword">while</span>(cin&gt;&gt;n)&#123;</div><div class="line">    setOne(n);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void <span class="function"><span class="title">printCommonNumber</span></span>()&#123;</div><div class="line">  ifstream cin(<span class="string">"b.txt"</span>);</div><div class="line">  unsigned int n;</div><div class="line">  <span class="keyword">while</span>(cin&gt;&gt;n)&#123;</div><div class="line">    <span class="keyword">if</span>(1 == getState(n))</div><div class="line">      cout&lt;&lt;n&lt;&lt;<span class="string">" "</span>;</div><div class="line">  &#125;</div><div class="line">  cout&lt;&lt;endl;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">  createALL();</div><div class="line">  SetAllZero();</div><div class="line">  setStateFromFile();</div><div class="line">  printCommonNumber();</div><div class="line">  deleteALL();</div><div class="line">  <span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BIT_INT 32</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIFT 5</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MASK 0x1f</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> N 4294967296</span></div><div class="line"></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> *a = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">createALL</span><span class="params">()</span></span>&#123;</div><div class="line">	a = <span class="keyword">new</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>[<span class="number">1</span>+N/BIT_INT];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteALL</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">delete</span>[] a;</div><div class="line">    a = <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetAllZero</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="built_in">memset</span>(a,<span class="number">0</span>,(<span class="number">1</span>+N/BIT_INT)*<span class="keyword">sizeof</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span>));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOne</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">	a[i &gt;&gt; SHIFT] |= (<span class="number">1</span>&lt;&lt;(i&amp;MASK));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setZero</span><span class="params">()</span></span>&#123;</div><div class="line">	a[i &gt;&gt; SHIFT] &amp;= ~(<span class="number">1</span>&lt;&lt;(i&amp;MASK));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getState</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> (a[i &gt;&gt; SHIFT] &amp;(<span class="number">1</span> &lt;&lt; (i&amp;MASK)));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setStateFromFile</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="function">ifstream <span class="title">cin</span><span class="params">(<span class="string">"a.txt"</span>)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> n;</div><div class="line">  <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</div><div class="line">    setOne(n);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">printCommonNumber</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="function">ifstream <span class="title">cin</span><span class="params">(<span class="string">"b.txt"</span>)</span></span>;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> n;</div><div class="line">  <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="number">1</span> == getState(n))</div><div class="line">      <span class="built_in">cout</span>&lt;&lt;n&lt;&lt;<span class="string">" "</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">  createALL();</div><div class="line">  SetAllZero();</div><div class="line">  setStateFromFile();</div><div class="line">  printCommonNumber();</div><div class="line">  deleteALL();</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="函数库实现"><a href="#函数库实现" class="headerlink" title="函数库实现"></a>函数库实现</h2><p>C++的STL中有bitmap类，它提供了很多方法，详见<a href="http://www.cplusplus.com/reference/stl/bitset/" target="_blank" rel="external">http://www.cplusplus.com/reference/stl/bitset/</a></p>
+<ul>
+<li>使用C++的bitset:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bitset&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000000</span></div><div class="line"><span class="built_in">bitset</span>&lt;N&gt; b;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> n;</div><div class="line">  <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</div><div class="line">    b.<span class="built_in">set</span>(n);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; N;i ++)&#123;</div><div class="line">    <span class="keyword">if</span>(b.test(i))&#123;</div><div class="line">      <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<br>bitset<n>不能放在main内，否则stack overflow。若要放在main内，要放在main内，要加static或new一个。</n></p>
+</blockquote>
+<h2 id="位图应用"><a href="#位图应用" class="headerlink" title="位图应用"></a>位图应用</h2><ul>
+<li>求字符的所有组合</li>
+</ul>
+<blockquote>
+<p>思路：输入a、b、c,则它们的组合为a,b,c,ab,ac,bc,abc。</p>
+</blockquote>
+<p>假设原有元素有n个，则最终组合为2^n-1个。利用位图思想，假设原有a、b、c三个元素，则1表示取元素，0表示不取。故取a则为001，取ab则为011，而000没有意义，所以共有2^n个结果。<br>这些位图值都是1,2,…,2^n,所以从值1到值2^n-1的输出结果为：<br>001,010,…,111<br>对应观察结果为：a,b,ab,c,ac,bc,abc。<br>因此，循环1~2^n-1，然后输出组合结果即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">combination</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (str == <span class="string">" "</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">int</span> len = str.length();</div><div class="line">	<span class="keyword">int</span> n = <span class="number">1</span> &lt;&lt; len;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++ )</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; len;j ++)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">int</span> temp = i;</div><div class="line">			<span class="keyword">if</span> (temp &amp;(<span class="number">1</span> &lt;&lt; j))</div><div class="line">				<span class="built_in">cout</span> &lt;&lt; str[j];</div><div class="line">		&#125;</div><div class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="built_in">string</span> str = <span class="string">"abc"</span>;</div><div class="line">	combination(str);</div><div class="line">	system(<span class="string">"pause"</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>bitmap求哈密尔顿距离</li>
+</ul>
+<blockquote>
+<p>问题描述<br>给定N（1&lt;=N&lt;=100000）个五维的点(X1,X2,X3,X4,X5)，求两点X(x1,x2,x3,x4,x5)和Y(y1,y2,y3,y4,y5)使得|x1-y1|+|x2-y2|+|x3-y3|+|x4-y4|+|x5-y5|最大</p>
+</blockquote>
+<ul>
+<li>解题思路  </li>
+</ul>
+<p>对于任意两点(x1,x2)和(y1,y2)  </p>
+<p>|x1-y1|=max(x1-y1,y1-x1);<br>=&gt;|x1-y1|+|x2-y2|=max{<br>  (x1-y1)+(x2-y2)<br>  (x1-y1)-(x2-y2)<br>  (y1-x1)+(x2-y2)<br>  (y1-x1)-(x2-y2)<br>};  </p>
+<p>=max{<br>  (x1+x2)-(y1+y2)<br>  (x1-x2)-(y1-y2)<br>  (-x1+x2)-(-y1+y2)<br>  (-x1-x2)-(-y1-y2)<br>};  </p>
+<p>通过观察，发现每一对相同元的符号必定相反，如：xi-yi，于是使用bitmap的思想来枚举这些二维的点的x轴和y轴前的正负号，这样可用一个0~3的二进制形式来表示：0表示+号，1表示-号。</p>
+<p>对于每个点X和Y的符号，可用A[4]数组存储下来，那么对于点1(x1,y1)和2(x2,y2)两点就可表示为下式一：</p>
+<blockquote>
+<p>A[1][0] - A[2][0]<br>A[1][1] - A[2][1]<br>A[1][2] - A[2][2]<br>A[1][3] - A[2][3]</p>
+</blockquote>
+<p>约定X[ij]的下标数字(ij)是二进制，令  </p>
+<p>X00=x1+x2<br>X01=x1-x2<br>X10=-x1+x2<br>X11=-x1-x2</p>
+<p>假设有A-Z共26个点，则<br>result=max{<br>  (A00-B00), (A01-B01), (A10-B10), (A11-B11),<br>  (A00-C00), (A01-C01), (A10-C10), (A11-C11),<br>   ……<br>   (X00-Y00), (X01-Y01), (X10-Y10), (X11-Y11),<br>   (Y00-Z00), (Y01-Z01), (Y10-Z10), (Y11-Z11),<br>}  </p>
+<p>很明显，对上面每一列应用max运算：  </p>
+<blockquote>
+<p>max(第一列)=<br>max(A00,B00,…,Z00) - min(A00,B00,…,Z00)  </p>
+</blockquote>
+<p>result=max{max(第一列)，max(第二列) … };  </p>
+<p>对每个I(00,01,10,11)，求A[*][I]的最大值max(I)和最小值min(I),然后再求max{max(I)-min(I)}  </p>
+<ul>
+<li>通俗的理解</li>
+</ul>
+<blockquote>
+<p>先求A[i][I]-A[j][I](I=00,01,10,11)，还原就是先求该等式xi+xj-(yi+yj)的最大值,分解后变成求max(xi+xj)和min(yi+yj)。再求这两个数相差后得到的集合中的最大值即可。</p>
+</blockquote>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
       
 
       
@@ -449,10 +497,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
@@ -462,6 +506,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,11 +529,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IPTV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内存分配</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,19 +561,39 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份，升级</a>
+                <a href="javascript:void(0)" class="js-tag color5">流量识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">腾讯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,47 +609,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">流量识别</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单位转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">程序编译</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">类型转换</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c语言</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">腾讯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">生活，诗</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">socket编程</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
             
             <div class="clearfix"></div>
