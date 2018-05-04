@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  <meta name=referrer content=never>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>内存分配 | Hexo</title>
+  <meta name="description" content="内存分配方式 从静态存储区域分配内存在程序编译时就已分配好，这块内存在程序的整个运行期间都存在，如：全局变量，static变量  在栈上创建在执行函数时，函数内局部变量的存储单元都可在栈上创建，函数执行结束时这些存储单元自动释放栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限  从堆上分配，亦称动态内存分配程序在运行时，用malloc或new申请任意多少的内存，程序员自己负责在">
+<meta name="keywords" content="内存分配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存分配">
+<meta property="og:url" content="https://wonderxiao.github.io/2018/03/25/内存分配/index.html">
+<meta property="og:site_name" content="思想直播信号">
+<meta property="og:description" content="内存分配方式 从静态存储区域分配内存在程序编译时就已分配好，这块内存在程序的整个运行期间都存在，如：全局变量，static变量  在栈上创建在执行函数时，函数内局部变量的存储单元都可在栈上创建，函数执行结束时这些存储单元自动释放栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限  从堆上分配，亦称动态内存分配程序在运行时，用malloc或new申请任意多少的内存，程序员自己负责在">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-04T13:50:45.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存分配">
+<meta name="twitter:description" content="内存分配方式 从静态存储区域分配内存在程序编译时就已分配好，这块内存在程序的整个运行期间都存在，如：全局变量，static变量  在栈上创建在执行函数时，函数内局部变量的存储单元都可在栈上创建，函数执行结束时这些存储单元自动释放栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限  从堆上分配，亦称动态内存分配程序在运行时，用malloc或new申请任意多少的内存，程序员自己负责在">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://wonderxiao.github.io/2018/03/25/内存分配/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/wonderxiao" target="_blank">
+          <img class="img-circle img-rotate" src="/images/tu.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">wonderxiao</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Network Enginner &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+				
+			
+			<span class="menu-title">首页</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+				
+			
+			<span class="menu-title">归档</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+				
+			
+			<span class="menu-title">分类</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+				
+			
+			<span class="menu-title">标签</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+				
+			
+			<span class="menu-title">项目</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+				
+			
+			<span class="menu-title">书单</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album">
+            
+            <i class="icon icon-eye-fill"></i>
+            
+			
+			<span class="menu-title">相册</span>
+				
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+				
+			
+			<span class="menu-title">关于</span>
+			
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/wonderxiao" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/1803630397" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/内存管理/">内存管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/单位/">单位</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/科研/">科研</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频/">视频</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/路由器/">路由器</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IP/">IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPTV/">IPTV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核/">Linux内核</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWrt/">OpenWrt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket编程/">socket编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分配/">内存分配</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位转换/">单位转换</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/备份，升级/">备份，升级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据存储/">大数据存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量识别/">流量识别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类型转换/">类型转换</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/视频/">视频</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13.5px;">C++</a> <a href="/tags/IP/" style="font-size: 13px;">IP</a> <a href="/tags/IPTV/" style="font-size: 13px;">IPTV</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Linux内核/" style="font-size: 13px;">Linux内核</a> <a href="/tags/OpenWrt/" style="font-size: 13px;">OpenWrt</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/github/" style="font-size: 13px;">github</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/socket编程/" style="font-size: 13px;">socket编程</a> <a href="/tags/位图/" style="font-size: 13px;">位图</a> <a href="/tags/内存分配/" style="font-size: 14px;">内存分配</a> <a href="/tags/单位转换/" style="font-size: 13px;">单位转换</a> <a href="/tags/备份，升级/" style="font-size: 13px;">备份，升级</a> <a href="/tags/大数据存储/" style="font-size: 13px;">大数据存储</a> <a href="/tags/操作系统/" style="font-size: 13px;">操作系统</a> <a href="/tags/正则表达式/" style="font-size: 13px;">正则表达式</a> <a href="/tags/汇编/" style="font-size: 13px;">汇编</a> <a href="/tags/流量识别/" style="font-size: 13px;">流量识别</a> <a href="/tags/相册/" style="font-size: 13px;">相册</a> <a href="/tags/算法/" style="font-size: 13px;">算法</a> <a href="/tags/类型转换/" style="font-size: 13.5px;">类型转换</a> <a href="/tags/视频/" style="font-size: 13px;">视频</a> <a href="/tags/进程/" style="font-size: 13px;">进程</a> <a href="/tags/面试/" style="font-size: 13px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/算法/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/29/位图学习/" class="title">位图学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-29T09:08:46.000Z" itemprop="datePublished">2018-03-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/科研/">科研</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/28/网络流量识别/" class="title">网络流量识别</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-28T10:08:52.000Z" itemprop="datePublished">2018-03-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/25/协议栈分析（一）/" class="title">协议栈分析（一）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-24T20:55:09.000Z" itemprop="datePublished">2018-03-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/内存管理/">内存管理</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/25/内存分配/" class="title">内存分配</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-24T20:41:56.000Z" itemprop="datePublished">2018-03-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/工作/">工作</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/22/腾讯电话面试经/" class="title">腾讯电话面试经</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-22T09:21:56.000Z" itemprop="datePublished">2018-03-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-内存分配" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      内存分配
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/03/25/内存分配/" class="article-date">
+	  <time datetime="2018-03-24T20:41:56.000Z" itemprop="datePublished">2018-03-24</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/内存管理/">内存管理</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/内存分配/">内存分配</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/25/内存分配/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h2 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h2><ul>
+<li><p>从静态存储区域分配<br>内存在程序编译时就已分配好，这块内存在程序的整个运行期间都存在，<br>如：全局变量，static变量</p>
+</li>
+<li><p>在栈上创建<br>在执行函数时，函数内局部变量的存储单元都可在栈上创建，函数执行结束时这些存储单元自动释放<br>栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限</p>
+</li>
+<li><p>从堆上分配，亦称动态内存分配<br>程序在运行时，用malloc或new申请任意多少的内存，程序员自己负责在何时使用free或delete释放内存<br>动态内存的生存期由程序员决定，使用灵活</p>
+</li>
+</ul>
+<h2 id="C语言中内存申请相关的函数"><a href="#C语言中内存申请相关的函数" class="headerlink" title="C语言中内存申请相关的函数"></a>C语言中内存申请相关的函数</h2><blockquote>
+<p>alloca、calloc、malloc、free、realloc、sbrk</p>
+</blockquote>
+<ul>
+<li>alloca是向栈申请内存，因此无需释放；malloc分配的内存位于堆中，且没初始化内存的内容。因此，在malloc之后，调用memset来初始化这部分的内存空间</li>
+<li>calloc将初始化这部分的内对空间设置为0</li>
+<li>realloc对malloc申请的内存进行大小的调整，申请的内存最终通过free来释放</li>
+<li>sbrk增加数据段的大小</li>
+<li>malloc、calloc和free都是C函数库实现的，与OS无关<br>C函数库内部通过一定的结构来保存当前有多少可用内存，若程序申请的malloc的大小超过库里所留的空间，则将先调用sbrk系统调用来增加可用空间，再进行分配空间</li>
+</ul>
+<p>free时，释放的内存并不立即返回给OS，而是保留在内部结构中。</p>
+<blockquote>
+<p>sbrk类似批发，一次性向OS申请大的内存，malloc等类似零售，满足程序运行时需求，这套机制类似缓冲。</p>
+</blockquote>
+<p>基于这套机制开发的原因：<br>  ● 系统调用不能支持任意大小的内存分配，有的系统调用只支持固定大小即其倍数的内存申请，这样会造成需使用小内存而申请大内存空间的浪费<br>  ● 系统调用申请内存代价大，涉及用户态到内核态的转换</p>
+<h2 id="malloc和calloc分配动态内存空间"><a href="#malloc和calloc分配动态内存空间" class="headerlink" title="malloc和calloc分配动态内存空间"></a>malloc和calloc分配动态内存空间</h2><p><strong>区别</strong>：</p>
+<ul>
+<li><p>malloc( )函数有一个参数，即所分配内存空间的大小<br>void *malloc(size_t size);<br>calloc( )函数有两个参数，分别为元素数目和元素大小，参数乘积为要分配的内存空间大小<br>void *calloc(size_t numElements, size_t sizeOfElement);<br>若调用成功，函数malloc( )和calloc( )都将返回所分配的内存空间的首地址</p>
+</li>
+<li><p>malloc( )不能初始化所分配的内存空间，calloc( )可以<br>若malloc函数分配的内存空间之前没使用过，则每一位可能都是0；但这部分空间曾被分配、释放或重新分配，则可能存留各种各样的数据。换句话说，即使用malloc函数的程序开始时（内存空间没重新分配）能正常运行，但经过一段时间后（内存空间）可能出现问题<br>calloc函数会将所分配的内存空间中的每一位都初始化为0</p>
+</li>
+<li>malloc函数只返回一个对象，而calloc函数会返回一个由某种对象组成的数组。如为数组分配内存空间时，可选用calloc函数</li>
+</ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ol>
+<li>在calloc函数和malloc函数之间选择时，只需考虑是否初始化所分配的内存空间，而不要考虑函数是否能返回一个数组。因为，尽管malloc并不能返回一个数组，但它所分配的内存空间仍能供一个数组使用</li>
+<li>当程序运行中有malloc时，但没有free，会造成内存泄露。由于一部分内存未被使用而又没被free，因此系统认为这部分内存仍在使用，造成不断的向系统申请内存，使系统可用内存不断减少。但是，内存泄露仅仅指程序在运行时，程序退出时，OS将回收所有资源</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://wonderxiao.github.io/2018/03/25/内存分配/" title="内存分配" target="_blank" rel="external">https://wonderxiao.github.io/2018/03/25/内存分配/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/wonderxiao" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/tu.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/wonderxiao" target="_blank"><span class="text-dark">wonderxiao</span><small class="ml-1x">Network Enginner &amp; Designer</small></a></h3>
+        <div>网络工程师</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTM2NS83OTI4">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/25/协议栈分析（一）/" title="协议栈分析（一）"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/03/22/腾讯电话面试经/" title="腾讯电话面试经"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/wonderxiao" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/1803630397" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+
+    
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+    
+    
+
+    <script defer>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?ebad87ecd6d46b8d0b76f8cdb30318d1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+</body>
+</html>

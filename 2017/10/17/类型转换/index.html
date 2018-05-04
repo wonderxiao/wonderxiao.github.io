@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  <meta name=referrer content=never>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>类型转换 | Hexo</title>
+  <meta name="description" content="关于类型转换123456789101112131415161718192021222324int p = 0x12345678;char *t;t = (char *)&amp;amp;p;printf(&quot;p:0x%x\n&quot;,&amp;amp;p);printf(&quot;q[0]:0x%x\n&quot;,q[0]);printf(&quot;&amp;amp;q[0]:0x%x\n&quot;,&amp;amp;q[0]);printf(&quot;q[1]:0x%x\n">
+<meta name="keywords" content="类型转换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类型转换">
+<meta property="og:url" content="https://wonderxiao.github.io/2017/10/17/类型转换/index.html">
+<meta property="og:site_name" content="思想直播信号">
+<meta property="og:description" content="关于类型转换123456789101112131415161718192021222324int p = 0x12345678;char *t;t = (char *)&amp;amp;p;printf(&quot;p:0x%x\n&quot;,&amp;amp;p);printf(&quot;q[0]:0x%x\n&quot;,q[0]);printf(&quot;&amp;amp;q[0]:0x%x\n&quot;,&amp;amp;q[0]);printf(&quot;q[1]:0x%x\n">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-04T13:50:55.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="类型转换">
+<meta name="twitter:description" content="关于类型转换123456789101112131415161718192021222324int p = 0x12345678;char *t;t = (char *)&amp;amp;p;printf(&quot;p:0x%x\n&quot;,&amp;amp;p);printf(&quot;q[0]:0x%x\n&quot;,q[0]);printf(&quot;&amp;amp;q[0]:0x%x\n&quot;,&amp;amp;q[0]);printf(&quot;q[1]:0x%x\n">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://wonderxiao.github.io/2017/10/17/类型转换/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="思想直播信号" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/wonderxiao" target="_blank">
+          <img class="img-circle img-rotate" src="/images/tu.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">wonderxiao</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Network Enginner &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+				
+			
+			<span class="menu-title">首页</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+				
+			
+			<span class="menu-title">归档</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+				
+			
+			<span class="menu-title">分类</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+				
+			
+			<span class="menu-title">标签</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+				
+			
+			<span class="menu-title">项目</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+				
+			
+			<span class="menu-title">书单</span>
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album">
+            
+            <i class="icon icon-eye-fill"></i>
+            
+			
+			<span class="menu-title">相册</span>
+				
+			
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+				
+			
+			<span class="menu-title">关于</span>
+			
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/wonderxiao" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/1803630397" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/内存管理/">内存管理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/单位/">单位</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客/">博客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/科研/">科研</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/视频/">视频</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/路由器/">路由器</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IP/">IP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPTV/">IPTV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux内核/">Linux内核</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWrt/">OpenWrt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket编程/">socket编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分配/">内存分配</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位转换/">单位转换</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/备份，升级/">备份，升级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据存储/">大数据存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编/">汇编</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流量识别/">流量识别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类型转换/">类型转换</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/视频/">视频</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程/">进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13.5px;">C++</a> <a href="/tags/IP/" style="font-size: 13px;">IP</a> <a href="/tags/IPTV/" style="font-size: 13px;">IPTV</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Linux内核/" style="font-size: 13px;">Linux内核</a> <a href="/tags/OpenWrt/" style="font-size: 13px;">OpenWrt</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/github/" style="font-size: 13px;">github</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/socket编程/" style="font-size: 13px;">socket编程</a> <a href="/tags/位图/" style="font-size: 13px;">位图</a> <a href="/tags/内存分配/" style="font-size: 14px;">内存分配</a> <a href="/tags/单位转换/" style="font-size: 13px;">单位转换</a> <a href="/tags/备份，升级/" style="font-size: 13px;">备份，升级</a> <a href="/tags/大数据存储/" style="font-size: 13px;">大数据存储</a> <a href="/tags/操作系统/" style="font-size: 13px;">操作系统</a> <a href="/tags/正则表达式/" style="font-size: 13px;">正则表达式</a> <a href="/tags/汇编/" style="font-size: 13px;">汇编</a> <a href="/tags/流量识别/" style="font-size: 13px;">流量识别</a> <a href="/tags/相册/" style="font-size: 13px;">相册</a> <a href="/tags/算法/" style="font-size: 13px;">算法</a> <a href="/tags/类型转换/" style="font-size: 13.5px;">类型转换</a> <a href="/tags/视频/" style="font-size: 13px;">视频</a> <a href="/tags/进程/" style="font-size: 13px;">进程</a> <a href="/tags/面试/" style="font-size: 13px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/算法/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/29/位图学习/" class="title">位图学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-29T09:08:46.000Z" itemprop="datePublished">2018-03-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/科研/">科研</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/28/网络流量识别/" class="title">网络流量识别</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-28T10:08:52.000Z" itemprop="datePublished">2018-03-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/linux/">linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/25/协议栈分析（一）/" class="title">协议栈分析（一）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-24T20:55:09.000Z" itemprop="datePublished">2018-03-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/内存管理/">内存管理</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/25/内存分配/" class="title">内存分配</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-24T20:41:56.000Z" itemprop="datePublished">2018-03-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/工作/">工作</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/22/腾讯电话面试经/" class="title">腾讯电话面试经</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-22T09:21:56.000Z" itemprop="datePublished">2018-03-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于类型转换"><span class="toc-number">1.</span> <span class="toc-text">关于类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-类型转换" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      类型转换
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2017/10/17/类型转换/" class="article-date">
+	  <time datetime="2017-10-16T16:28:19.000Z" itemprop="datePublished">2017-10-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/内存管理/">内存管理</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/类型转换/">类型转换</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/10/17/类型转换/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <h2 id="关于类型转换"><a href="#关于类型转换" class="headerlink" title="关于类型转换"></a>关于类型转换</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> p = <span class="number">0x12345678</span>;</div><div class="line"><span class="keyword">char</span> *t;</div><div class="line">t = (<span class="keyword">char</span> *)&amp;p;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"p:0x%x\n"</span>,&amp;p);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"q[0]:0x%x\n"</span>,q[<span class="number">0</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"&amp;q[0]:0x%x\n"</span>,&amp;q[<span class="number">0</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"q[1]:0x%x\n"</span>,q[<span class="number">1</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"&amp;q[1]:0x%x\n"</span>,&amp;q[<span class="number">1</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"q[2]:0x%x\n"</span>,q[<span class="number">2</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"&amp;q[2]:0x%x\n"</span>,&amp;q[<span class="number">2</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"q[3]:0x%x\n"</span>,q[<span class="number">3</span>]);</div><div class="line"><span class="built_in">printf</span>(<span class="string">"&amp;q[3]:0x%x\n"</span>,&amp;q[<span class="number">3</span>]);</div><div class="line"></div><div class="line">运行结果：</div><div class="line"></div><div class="line">p:<span class="number">0xffffcbc4</span></div><div class="line">q[<span class="number">0</span>]:<span class="number">0x78</span></div><div class="line">&amp;q[<span class="number">0</span>]:<span class="number">0xffffcbc4</span></div><div class="line">q[<span class="number">1</span>]:<span class="number">0x56</span></div><div class="line">&amp;q[<span class="number">1</span>]:<span class="number">0xffffcbc5</span></div><div class="line">q[<span class="number">2</span>]:<span class="number">0x34</span></div><div class="line">&amp;q[<span class="number">2</span>]:<span class="number">0xffffcbc6</span></div><div class="line">q[<span class="number">3</span>]:<span class="number">0x12</span></div><div class="line">&amp;q[<span class="number">3</span>]:<span class="number">0xffffcbc7</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>&amp;p本来是int *类型，强制转换为char *</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span> *p = &amp;a;</div></pre></td></tr></table></figure>
+</li>
+<li><p>int *p表示（int *)p，即指向整型变量的指针变量</p>
+</li>
+<li>p对于a的首地址</li>
+<li>p所对内存长度为sizeof(int)个字节</li>
+</ul>
+<p>对指针进行强制类型转换时并不改变指针的值，即对应的首地址，但其对应的内存长度会改变。许多编译器对指针类型要求严格，在传递指针时要进行强制类型转换。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> m = <span class="number">20</span>;</div><div class="line"><span class="keyword">float</span> t;</div><div class="line">t = (<span class="keyword">float</span>)m;</div></pre></td></tr></table></figure></p>
+<p>此时的强制类型转换，会将m处存放的值转化为float型的变量赋给t里的内容。<br>再举一例：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch1 = <span class="number">0x0A</span>; <span class="comment">// 假设ch1地址位于20H，即m[20H] = 0x0AH</span></div><div class="line"><span class="keyword">char</span>* p1 = &amp;ch1;</div><div class="line"><span class="keyword">char</span>** pp1 = &amp;p1;</div></pre></td></tr></table></figure></p>
+<p>观察下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">variable</th>
+<th style="text-align:center">addr</th>
+<th style="text-align:center">value </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ch1</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">0A   </td>
+</tr>
+<tr>
+<td style="text-align:center">None</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">CC    </td>
+</tr>
+<tr>
+<td style="text-align:center">p1</td>
+<td style="text-align:center">22</td>
+<td style="text-align:center">20  </td>
+</tr>
+<tr>
+<td style="text-align:center">pp1</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">22    </td>
+</tr>
+</tbody>
+</table>
+<p>若内存空间可看成一个数组：char m[256]，则<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch1 = **pp1;</div></pre></td></tr></table></figure></p>
+<p>因此，可理解成：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch1 = m[m[pp1]]; <span class="comment">// 解二级指针引用</span></div></pre></td></tr></table></figure></p>
+<p>同样地，<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> ch2 = *p1;</div><div class="line">可理解成：</div><div class="line"><span class="keyword">char</span> ch2 = m[p1];<span class="comment">// 解指针引用</span></div></pre></td></tr></table></figure></p>
+<p>在汇编层面，就是按上述叙述理解，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MOV EAX, [EDA + <span class="number">8</span>]</div><div class="line">CALL EAX</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当你想动态分配内存给二维数组，如矩阵、表等的时候，就可以使用(* *)这种二级指针进行操作了。简单地说，二级指针能够修改上一级的指针，就像一级指针能修改其指向的值。<br>同时，二级指针相对于一级指针来说，其减少了函数传参，如需传一个*offset来指示函数调用后的偏移量，而若传二级指针，则在函数调用后，指针就自动直接指向偏移后的地址了。<br>另一方面，二级指针，只是指向的变量换成指针了而已。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://wonderxiao.github.io/2017/10/17/类型转换/" title="类型转换" target="_blank" rel="external">https://wonderxiao.github.io/2017/10/17/类型转换/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/wonderxiao" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/tu.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/wonderxiao" target="_blank"><span class="text-dark">wonderxiao</span><small class="ml-1x">Network Enginner &amp; Designer</small></a></h3>
+        <div>网络工程师</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTM2NS83OTI4">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2017/10/17/linux内存分配函数/" title="linux内存分配函数"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2017/10/17/网络通信关键函数理解/" title="网络通信关键函数理解"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/wonderxiao" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/1803630397" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+
+    
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+    
+    
+
+    <script defer>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?ebad87ecd6d46b8d0b76f8cdb30318d1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+</body>
+</html>
