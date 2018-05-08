@@ -1,2 +1,2 @@
 ## Tips
-The files exists for my blog.
+The files exist for my blog.
