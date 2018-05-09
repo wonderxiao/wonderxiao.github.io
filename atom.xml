@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wonderxiao.github.io/"/>
-  <updated>2018-05-07T01:18:09.169Z</updated>
+  <updated>2018-05-09T12:39:49.744Z</updated>
   <id>https://wonderxiao.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wget命令</title>
+    <link href="https://wonderxiao.github.io/2018/05/10/wget%E5%91%BD%E4%BB%A4/"/>
+    <id>https://wonderxiao.github.io/2018/05/10/wget命令/</id>
+    <published>2018-05-09T18:57:19.000Z</published>
+    <updated>2018-05-09T12:39:49.744Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="wget命令"><a href="#wget命令" class="headerlink" title="wget命令"></a>wget命令</h2><ul><li>用来从指定的URL下载文件</li></ul><p>wget非常稳定，它在带宽很窄的情况下和不稳定网络中有很强的适应性。如果是由于网络的原因下载失败，wget会不断的尝试，直到整个文件下载完毕。如果是服务器打断下载过程，它会再次联到服务器上从停止的地方继续下载。这对从那些限定了链接时间的服务器上下载大文件非常有用。</p><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget (选项) (参数)</div></pre></td></tr></table></figure><blockquote><p><strong>选项</strong><br>-a&lt;日志文件&gt;：在指定的日志文件中记录资料的执行过程；<br>-A&lt;后缀名&gt;：指定要下载文件的后缀名，多个后缀名之间使用逗号进行分隔；<br>-b：进行后台的方式运行wget；<br>-B&lt;连接地址&gt;：设置参考的连接地址的基地地址；<br>-c：继续执行上次终端的任务；<br>-C&lt;标志&gt;：设置服务器数据块功能标志on为激活，off为关闭，默认值为on；<br>-d：调试模式运行指令；<br>-D&lt;域名列表&gt;：设置顺着的域名列表，域名之间用“，”分隔；<br>-e&lt;指令&gt;：作为文件“.wgetrc”中的一部分执行指定的指令；<br>-h：显示指令帮助信息；<br>-i&lt;文件&gt;：从指定文件获取要下载的URL地址；<br>-l&lt;目录列表&gt;：设置顺着的目录列表，多个目录用“，”分隔；<br>-L：仅顺着关联的连接；<br>-r：递归下载方式；<br>-nc：文件存在时，下载文件不覆盖原有文件；<br>-nv：下载时只显示更新和出错信息，不显示指令的详细执行过程；<br>-q：不显示指令执行过程；<br>-nh：不查询主机名称；<br>-v：显示详细执行过程；<br>-V：显示版本信息；<br>–passive-ftp：使用被动模式PASV连接FTP服务器；<br>–follow-ftp：从HTML文件中下载FTP连接文件。  </p><p><strong>参数</strong><br>URL：下载指定的URL地址</p></blockquote><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><ul><li>使用wget下载单个文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://www.wonderxiao.cn/test.zip</div></pre></td></tr></table></figure><p>表示从网络下载一个文件并保存在当前目录，在下载过程中会显示进度条，包含下载完成百分比、已下载字节、当前下载速度和剩余下载时间。</p><ul><li>下载并以不同的文件名保存</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -O test.zip https://www.wonderxiao.cn/download.aspx?id=1000</div></pre></td></tr></table></figure><p>wget会默认以最后一个符合/的后面的字符来命名，对于动态链接的下载，通常文件名会不正确。</p><ul><li>wget限速下载</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --<span class="built_in">limit</span>-rate=300k https://www.wonderxiao.cn/test.zip</div></pre></td></tr></table></figure><p>当执行wget后，它会默认占用全部可能的带宽下载。但当你准备下载一个大文件时，而你仍需下载其他文件就需要进行限速处理。</p><ul><li>wget断点续传</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -c https://www.wonderxiao.cn/test.zip</div></pre></td></tr></table></figure><p>使用wget -c重新启动下载中断的文件。对于当我们下载大文件时突然由于网络等原因中断特别有帮助，使用该命令可继续接着下载而不是重新下载一个文件。</p><ul><li>wget后台下载</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget -b https://www.wonderxiao.cn/test.zip</div><div class="line"> &amp;nbsp;</div><div class="line">Continuing <span class="keyword">in</span> background, pid 1840.</div><div class="line">Output will be written to `wget-log<span class="string">'.</span></div></pre></td></tr></table></figure><p>对于下载非常大的文件的时候，可以通过使用参数-b进行后台下载。同时，可使用一下命令察看下载进度：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail -f wget-log</div></pre></td></tr></table></figure><ul><li>伪装代理名称下载</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget wget --user-agent=<span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.204 Safari/534.16"</span> https://www.wonderxiao.cn/test.zip</div></pre></td></tr></table></figure><p>有些网站能通过根据代理名称而不是浏览器而拒绝你的下载请求，不过你可以设置–user-agent参数来进行伪装。</p><ul><li>测试下载链接</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --spider URL</div></pre></td></tr></table></figure><p>有些网站能通过根据判断代理名称不是浏览器而拒绝你的下载请求。不过你可以通过–user-agent参数伪装。</p><p>如果下载链接正确，将会显示:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Spider mode enabled. Check <span class="keyword">if</span> remote file exists.</div><div class="line">HTTP request sent, awaiting response... 200 OK</div><div class="line">Length: unspecified [text/html]</div><div class="line">Remote file exists and could contain further links,</div><div class="line">but recursion is disabled -- not retrieving.</div></pre></td></tr></table></figure></p><p>这保证下载能在预定的时间内进行，但当你给错了一个链接时，将显示如下错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget --spider url</div><div class="line">Spider mode enabled. Check <span class="keyword">if</span> remote file exists.</div><div class="line">HTTP request sent, awaiting response... 404 Not Found</div><div class="line">Remote file does not exist -- broken link!!!</div></pre></td></tr></table></figure></p><p>你可以在以下几种情况下使用–spider参数：</p><ol><li>定时下载之前进行检查</li><li>间隔检测网站是否可用</li><li>检查网站页面的死链接</li></ol><ul><li>增加重试次数<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --tries=40 URL</div></pre></td></tr></table></figure></li></ul><p>如果网络有问题或下载一个大文件也有可能失败。wget默认重试20次连接下载文件。如果需要，你可以使用–tries增加重试次数。</p><ul><li>下载多个文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -i filelist.txt</div></pre></td></tr></table></figure><p>首先，保存一份下载链接文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat filelist.txt</div><div class="line">url1</div><div class="line">url2</div><div class="line">url3</div></pre></td></tr></table></figure></p><p>接着，使用这个文件和参数-i进行下载。</p><ul><li>镜像网站<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --mirror -p --convert-links -P ./LOCAL URL</div></pre></td></tr></table></figure></li></ul><p>下载整个网站到本地</p><blockquote><p> –mirror 表示镜像下载<br>   -p 下载所有以HTML页面显示正常的文件<br>   –convert-links 下载后，转换成本地链接<br>   -P ./LOCAL  保存所有文件和目录到本地指定目录  </p></blockquote><ul><li>过滤指定格式下载</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --reject=gif ur</div></pre></td></tr></table></figure><p>下载一个网站，但你不希望下载图片，可以使用这条命令。</p><ul><li>把下载信息存入日志文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -o download.log URL</div></pre></td></tr></table></figure><p>不希望下载信息直接显示在终端而是在一个日志文件，可以使用。</p><ul><li>限制总下载文件大小</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -Q5m -i filelist.txt</div></pre></td></tr></table></figure><p>当你想要下载的文件超过5M而退出下载，你可以使用。注意：这个参数对单个文件下载不起作用，只能递归下载时才有效。</p><ul><li>下载指定格式文件</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget -r -A.pdf url</div></pre></td></tr></table></figure><p>可以在以下情况使用该功能：  </p><ol><li>下载一个网站的所有图片  </li><li>下载一个网站的所有视频  </li><li>下载一个网站的所有PDF文件  </li></ol><ul><li>FTP下载</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget ftp-url</div><div class="line">$ wget --ftp-user=USERNAME --ftp-password=PASSWORD url</div></pre></td></tr></table></figure><p>可以使用wget来完成ftp链接的下载。</p><ul><li>使用wget匿名ftp下载：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget ftp-url</div></pre></td></tr></table></figure><ul><li>使用wget用户名和密码认证的ftp下载：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget --ftp-user=USERNAME --ftp-password=PASSWORD url</div></pre></td></tr></table></figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用wget命令可以很方面的对远程文件进行下载及网站链接的有效性进行检测。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;wget命令&quot;&gt;&lt;a href=&quot;#wget命令&quot; class=&quot;headerlink&quot; title=&quot;wget命令&quot;&gt;&lt;/a&gt;wget命令&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;用来从指定的URL下载文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;wget非常稳定，它在带宽很窄的情况下和
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://wonderxiao.github.io/categories/linux/"/>
+    
+    
+      <category term="linux命令" scheme="https://wonderxiao.github.io/tags/linux%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>tinyhttpd源码分析（一）</title>
@@ -513,43 +541,6 @@
     
     
       <category term="单位转换" scheme="https://wonderxiao.github.io/tags/%E5%8D%95%E4%BD%8D%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IPTV承载网络要求</title>
-    <link href="https://wonderxiao.github.io/2017/06/22/IPTV%E6%89%BF%E8%BD%BD%E7%BD%91%E7%BB%9C%E8%A6%81%E6%B1%82/"/>
-    <id>https://wonderxiao.github.io/2017/06/22/IPTV承载网络要求/</id>
-    <published>2017-06-21T16:25:36.000Z</published>
-    <updated>2018-05-08T02:13:18.070Z</updated>
-    
-    <content type="html"><![CDATA[<p>IPTV承载网：</p><ul><li>接入网</li><li>汇聚网</li><li>CDN网</li></ul><p>IPTV业务：</p><ul><li>直播电视</li><li>视频点播</li><li>时移电视</li></ul><p>==这些数据流传输过程，对带宽要求、对时延要求、对并发量都都一定的要求。==</p><p><strong>IPTV</strong></p><p>系统架构主要包括流媒体服务、节目采编、存储及认证计费等子系统，主要存储及传送内容是以MPEG-4为编码核心的流媒体文件。它是一个基于IP网络传输的系统，通常会在边缘设置内容分配服务节点，配置流媒体服务及存储设备。<br>用户终端：IP机顶盒+电视机、PC机</p><p>IPTV基于IP组播（多播）协议，实现1对组的下发方式，同时支持VOD点播，要求整网设备支持组播协议，包括IGMP、PIM等。</p><p>目前国内IPTV均采用==专网==形式，==不与宽带接入服务共享带宽，同时也不提供互联网接入服务。==</p><p><strong>OTT特点</strong>  </p><p>使用大量高新技术、视频编码技术、云技术、切片存储<br>网络开放，可访问互联网上业务。</p><p>IPTV业务属于高带宽业务，要求端到端网络具有大容量的承载能力。另外，高清、VOD业务量也在增加，对网络提出了更高的要求。</p><p>运营商在建网之前需要充分评估网络的视频承载能力、业务与网络承载能力的增速是否匹配、网络能支撑多少用户、网络是否会阻碍业务的发展等。  </p><p>设备评估主要评估网络设备对IPTV业务的承载能力， 涉及三层网络设备、 二层网络设备、 家庭组网设备的承载能力评估。</p><p>IPTV业务承载网包括接入网、城域汇聚网、IPTV网关和骨干网几部分组成；IPTV平台按三级结构部署，中心节点负责接收片源视频流并进行存储、编解码；中心节点到区域中心一般采用单播形式把视频流引下来。</p><p>网络提供服务：  </p><ul><li><p>互联网、电视、视频点播、VoIP（IP语音）、数据存储、监控服务、电子邮件、备份、安全等  </p></li><li><p>视频业务：IPTV、手机TV、互联网OTT TV、4K、多屏互动  </p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;IPTV承载网：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;接入网&lt;/li&gt;
-&lt;li&gt;汇聚网&lt;/li&gt;
-&lt;li&gt;CDN网&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;IPTV业务：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;直播电视&lt;/li&gt;
-&lt;li&gt;视频点播&lt;/li&gt;
-&lt;li&gt;时移电视&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;==
-      
-    
-    </summary>
-    
-      <category term="视频" scheme="https://wonderxiao.github.io/categories/%E8%A7%86%E9%A2%91/"/>
-    
-    
-      <category term="视频" scheme="https://wonderxiao.github.io/tags/%E8%A7%86%E9%A2%91/"/>
     
   </entry>
   
