@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="思想直播信号">
 <meta property="og:description" content="wget命令 用来从指定的URL下载文件  wget非常稳定，它在带宽很窄的情况下和不稳定网络中有很强的适应性。如果是由于网络的原因下载失败，wget会不断的尝试，直到整个文件下载完毕。如果是服务器打断下载过程，它会再次联到服务器上从停止的地方继续下载。这对从那些限定了链接时间的服务器上下载大文件非常有用。 语法1wget (选项) (参数)  选项-a&amp;lt;日志文件&amp;gt;：在指定的日志文件中">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-09T12:39:49.744Z">
+<meta property="og:updated_time" content="2018-05-09T12:53:29.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wget命令">
 <meta name="twitter:description" content="wget命令 用来从指定的URL下载文件  wget非常稳定，它在带宽很窄的情况下和不稳定网络中有很强的适应性。如果是由于网络的原因下载失败，wget会不断的尝试，直到整个文件下载完毕。如果是服务器打断下载过程，它会再次联到服务器上从停止的地方继续下载。这对从那些限定了链接时间的服务器上下载大文件非常有用。 语法1wget (选项) (参数)  选项-a&amp;lt;日志文件&amp;gt;：在指定的日志文件中">
@@ -404,7 +404,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/05/10/wget命令/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1,629(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1,627(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
@@ -446,7 +446,7 @@
 <ul>
 <li>wget后台下载</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget -b https://www.wonderxiao.cn/test.zip</div><div class="line"> &amp;nbsp;</div><div class="line">Continuing <span class="keyword">in</span> background, pid 1840.</div><div class="line">Output will be written to `wget-log<span class="string">'.</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ wget -b https://www.wonderxiao.cn/test.zip</div><div class="line">Continuing <span class="keyword">in</span> background, pid 1840.</div><div class="line">Output will be written to `wget-log<span class="string">'.</span></div></pre></td></tr></table></figure>
 <p>对于下载非常大的文件的时候，可以通过使用参数-b进行后台下载。同时，可使用一下命令察看下载进度：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail -f wget-log</div></pre></td></tr></table></figure>
 <ul>
